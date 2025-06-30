@@ -1,0 +1,109 @@
+body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #faf8f5;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .profile-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      border-bottom: 2px solid #f0e6d2;
+      padding-bottom: 25px;
+      margin-bottom: 30px;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #f9a825;
+    }
+
+    .profile-name {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .profile-bio {
+      font-size: 1rem;
+      margin-top: 10px;
+      color: #666;
+      max-width: 600px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 50px;
+      margin-bottom: 30px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #f9a825;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: #777;
+    }
+
+    .recipes-section {
+      margin-top: 20px;
+    }
+
+    .recipes-section h2 {
+      font-weight: 700;
+      border-bottom: 2px solid #f9a825;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    .recipe-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+      gap: 20px;
+    }
+
+    .recipe-card {
+      background: #fff3e0;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(249,168,37,0.3);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .recipe-card:hover {
+      transform: scale(1.05);
+    }
+
+    .recipe-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #6d4c41;
+    }
+
+    .recipe-desc {
+      font-size: 0.9rem;
+      color: #5d4037;
+    }
