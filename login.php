@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usr = $conn->real_escape_string($_POST['usr']);
     $pass = $_POST['pwd'];
 
-    $sql = "SELECT * FROM users WHERE Username='$usr'";
+    $sql = "SELECT * FROM Users WHERE Username='$usr'";
     $result = $conn->query($sql);
 
     if ($result && $result->num_rows == 1) {
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             $login_error = "Falsches Passwort.";
-            echo "Fehler";
+            echo "FehlerPWD";
         }
     } else {
         $login_error = "Benutzer nicht gefunden.";
