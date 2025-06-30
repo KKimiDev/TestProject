@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Profilübersicht - Rezepteseite</title>
+  <!-- Bootstrap 4 CSS -->
+  <link 
+    rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+    integrity="sha384-MCi1Uq0KnThZH4+y3F6w0tqROz4DjJ64b6+U0BkaEYcGZvKQ+wDknr73ZhYN63Fd" 
+    crossorigin="anonymous"
+  />
+  <style>
+    body {
+      background-color: #faf8f5;
+      color: #333;
+    }
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #f9a825;
+    }
+    .profile-container {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #f9a825;
+    }
+    .stat-label {
+      color: #777;
+    }
+    .recipe-card {
+      background: #fff3e0;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(249,168,37,0.3);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+    .recipe-card:hover {
+      transform: scale(1.05);
+    }
+    .recipe-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #6d4c41;
+      margin-bottom: 8px;
+    }
+    .recipe-desc {
+      font-size: 0.9rem;
+      color: #5d4037;
+    }
+    .profile-bio {
+      color: #666;
+    }
+    h2.section-title {
+      border-bottom: 2px solid #f9a825;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="container profile-container">
+    <div class="row align-items-center mb-4">
+      <div class="col-auto">
+        <img src="https://i.pravatar.cc/120?img=12" alt="Profilbild von User" class="profile-pic" />
+      </div>
+      <div class="col">
+        <h1 class="mb-1">Anna Koch</h1>
+        <p class="profile-bio mb-0">Leidenschaftliche Hobbyköchin, die gerne schnelle und gesunde Rezepte teilt. Lieblingszutat: Avocado 🥑</p>
+      </div>
+    </div>
+
+    <div class="row text-center mb-5">
+      <div class="col-sm-4 mb-3 mb-sm-0">
+        <div class="stat-number">34</div>
+        <div class="stat-label">Rezepte hochgeladen</div>
+      </div>
+      <div class="col-sm-4 mb-3 mb-sm-0">
+        <div class="stat-number">120</div>
+        <div class="stat-label">Follower</div>
+      </div>
+      <div class="col-sm-4">
+        <div class="stat-number">18</div>
+        <div class="stat-label">Lieblingsrezepte</div>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="section-title">Beliebte Rezepte</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="recipe-card">
+            <div class="recipe-title">Avocado Toast Deluxe</div>
+            <div class="recipe-desc">Knuspriges Brot mit cremiger Avocado, Tomaten und frischem Basilikum.</div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="recipe-card">
+            <div class="recipe-title">Schneller Quinoa-Salat</div>
+            <div class="recipe-desc">Leicht, proteinreich und perfekt für den Sommer.</div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="recipe-card">
+            <div class="recipe-title">Vegane Schoko-Muffins</div>
+            <div class="recipe-desc">Saftig und schokoladig, ganz ohne tierische Produkte.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 4 JS und dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" 
+    integrity="sha384-9/reFTGAW83EW2RDuZrjC1NpI3EzfndVxGJmZV1x4pD8e9H4C04Z1ITnkEoAflg7" 
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" 
+    integrity="sha384-B4gt1jrGC7Jh4Agvvm7A7bWvf3Yn7mxWZHLcPqoyQfLlBx6T/Tkfv7L7eM1biIvz" 
+    crossorigin="anonymous"></script>
+</body>
+</html>
