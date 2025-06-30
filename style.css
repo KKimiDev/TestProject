@@ -1,114 +1,190 @@
 body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #faf8f5;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #faf8f5;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
 
-    .profile-container {
-      max-width: 800px;
-      margin: 40px auto;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      padding: 30px;
-    }
+.profile-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  padding: 30px;
+}
 
-    .profile-header {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-      border-bottom: 2px solid #f0e6d2;
-      padding-bottom: 25px;
-      margin-bottom: 30px;
-    }
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  border-bottom: 2px solid #f0e6d2;
+  padding-bottom: 25px;
+  margin-bottom: 30px;
+}
 
-    .profile-pic {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #f9a825;
-    }
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f9a825;
+}
 
-    .profile-name {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin: 0;
-    }
+.profile-name {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+}
 
-    .profile-bio {
-      font-size: 1rem;
-      margin-top: 10px;
-      color: #666;
-      max-width: 600px;
-    }
+.profile-bio {
+  font-size: 1rem;
+  margin-top: 10px;
+  color: #666;
+  max-width: 600px;
+}
 
-    .stats {
-      display: flex;
-      gap: 50px;
-      margin-bottom: 30px;
-    }
+.stats {
+  display: flex;
+  gap: 50px;
+  margin-bottom: 30px;
+}
 
-    .stat {
-      text-align: center;
-    }
+.stat {
+  text-align: center;
+}
 
-    .stat-number {
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #f9a825;
-    }
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #f9a825;
+}
 
-    .stat-label {
-      font-size: 1rem;
-      color: #777;
-    }
+.stat-label {
+  font-size: 1rem;
+  color: #777;
+}
 
-    .recipes-section {
-      margin-top: 20px;
-    }
+.recipes-section {
+  margin-top: 20px;
+}
 
-    .recipes-section h2 {
-      font-weight: 700;
-      border-bottom: 2px solid #f9a825;
-      padding-bottom: 8px;
-      margin-bottom: 20px;
-    }
+.recipes-section h2 {
+  font-weight: 700;
+  border-bottom: 2px solid #f9a825;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
 
-    .recipe-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-      gap: 20px;
-    }
+.recipe-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+  gap: 20px;
+}
 
-    .recipe-card {
-      background: #fff3e0;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 2px 8px rgba(249,168,37,0.3);
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
+.recipe-card {
+  background: #fff3e0;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(249,168,37,0.3);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
 
-    .recipe-card:hover {
-      transform: scale(1.05);
-    }
+.recipe-card:hover {
+  transform: scale(1.05);
+}
 
-    .recipe-title {
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      color: #6d4c41;
-    }
+.recipe-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: #6d4c41;
+}
 
-    .recipe-desc {
-      font-size: 0.9rem;
-      color: #5d4037;
-    }
+.recipe-desc {
+  font-size: 0.9rem;
+  color: #5d4037;
+}
 
-    #folgen {
+/* Bestehende Styles aus deinem CSS bleiben unverändert */
 
-      margin: 10%;
-    }
+.login-container {
+  max-width: 400px;
+  margin: 80px auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  padding: 30px 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-container h2 {
+  color: #f9a825;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-container label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+  padding: 12px 15px;
+  border: 2px solid #f0e6d2;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.login-container input[type="email"]:focus,
+.login-container input[type="password"]:focus {
+  border-color: #f9a825;
+  outline: none;
+}
+
+.login-container button {
+  background-color: #f9a825;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: #c7a300;
+}
+
+.login-container .forgot-password {
+  text-align: right;
+  font-size: 0.9rem;
+  color: #666;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: underline;
+  margin-top: -10px;
+}
+
+.login-container .forgot-password:hover {
+  color: #f9a825;
+}
+
+#folgen {
+  margin: 10%;
+}
