@@ -1,3 +1,52 @@
+/* Zusätzliche Styles für Sidebar und Layout */
+main {
+  min-height: 80vh;
+}
+
+footer {
+  background-color: #f9a825;
+  color: white;
+  padding: 15px 0;
+  text-align: center;
+  font-weight: 600;
+}
+
+.sidebar {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  height: 100%;
+}
+
+.sidebar h5 {
+  border-bottom: 2px solid #f9a825;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  font-weight: 700;
+  color: #6d4c41;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  color: #5d4037;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sidebar ul li a:hover {
+  color: #f9a825;
+  text-decoration: underline;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #faf8f5;
@@ -209,3 +258,34 @@ h1 {
     }
 
 
+/* Hier kommt dein gesamter CSS-Code aus deiner Vorlage rein */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #faf8f5;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .profile-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    /* ... restliche CSS-Klassen hier ... */
+    .zsm {
+      display: flex;
+      align-items: center;
+    }
+
+    .folgen {
+      margin: 10%;
+      color: #aaa;
+      font-style: italic;
+    }
+
+    
