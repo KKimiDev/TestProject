@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="/sites/Rezepte/"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profilübersicht</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="profile-container">
     <div class="profile-header">
-      <img class="profile-pic" src="Bilder\R.png" alt="Profilbild von User" />
+      <img class="profile-pic" src="rsc/R.png" alt="Profilbild von User" />
       
       <div>
         <div style="display: flex; align-items: center;">
