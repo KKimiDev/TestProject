@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profilübersicht</title>
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- /// BOOTSTRAP /// -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- /// ENDE BOOTSTRAP /// -->
 </head>
 <body>
   <div class="profile-container">
@@ -13,9 +27,11 @@
       <img class="profile-pic" src="rsc/R.png" alt="Profilbild von User" />
       
       <div>
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 15px;">
         <h1 class="profile-name">Anna Koch</h1>
-        <button id="folgen">Folgen</button>
+        <button class="btn btn-sm btn-outline-warning text-black fw-bold rounded-pill px-4">
+          Follow
+        </button>
         </div>
         <p class="profile-bio">Leidenschaftliche Hobbyköchin, die gerne schnelle und gesunde Rezepte teilt. Lieblingszutat: Avocado 🥑</p>
       </div>
