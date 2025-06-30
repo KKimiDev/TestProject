@@ -188,3 +188,24 @@ body {
 #folgen {
   margin: 10%;
 }
+
+
+h1 {
+    text-align: center;
+
+}
+
+    .zsm {
+
+      display: flex;
+      align-items: center;
+    }
+
+    .folgen {
+
+      margin: 10%;
+      color: #aaa;
+      font-style: italic;
+    }
+
+
