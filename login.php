@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,14 +23,58 @@
         <!-- /// ENDE BOOTSTRAP /// -->
     </head>
     <body>
+        <?php
+session_start();
+
+// Datenbankverbindung
+$servername = "localhost";
+$username = "root"; // Standard bei XAMPP
+$password = "";
+$dbname = "Rezepte";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    echo "<p>Verbo</p>";
+    die("Verbindung fehlgeschlagen: " . $conn->connect_error);
+}
+
+$login_error = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $usr = $conn->real_escape_string($_POST['usr']);
+    $pass = $_POST['pwd'];
+
+    $sql = "SELECT * FROM users WHERE Username='$usr'";
+    $result = $conn->query($sql);
+
+    if ($result && $result->num_rows == 1) {
+        $user = $result->fetch_assoc();
+        // Passwort prüfen
+        if (password_verify($pass, $user['Password'])) {
+            // Login erfolgreich
+            $_SESSION['usr'] = $user['Username'];
+
+            header("Location: index.php");
+            exit();
+        } else {
+            $login_error = "Falsches Passwort.";
+            echo "Fehler";
+        }
+    } else {
+        $login_error = "Benutzer nicht gefunden.";
+
+        echo "Fehler";
+    }
+}
+?>
         <div class="login-container">
         <h2>Login</h2>
-        <form>
+        <form method="POST" action="">
             <label for="email">E-Mail</label>
-            <input type="email" id="email" name="email" placeholder="E-Mail eingeben" required>
+            <input type="text" id="email" name="usr" placeholder="E-Mail eingeben" required>
 
             <label for="password">Passwort</label>
-            <input type="password" id="password" name="password" placeholder="Passwort eingeben" required>
+            <input type="password" id="password" name="pwd" placeholder="Passwort eingeben" required>
 
             <div class="forgot-password">Passwort vergessen?</div>
 

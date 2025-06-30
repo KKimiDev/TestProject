@@ -140,7 +140,7 @@ body {
   margin-bottom: 6px;
 }
 
-.login-container input[type="email"],
+.login-container input[type="text"],
 .login-container input[type="password"] {
   padding: 12px 15px;
   border: 2px solid #f0e6d2;
