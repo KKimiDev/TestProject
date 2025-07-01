@@ -87,14 +87,28 @@
       text-decoration: underline;
     }
     .B-Rund{
-      background-color:rgb(124, 116, 116);
-      padding: 15px;
+      background-color: #f9a825;
+      padding: 12px 12px;
+      border: none;
+      color: white;
       text-align: center;
       text-decoration: none;
       display: inline-block;
       font-size: 16px;
       margin: 4px 2px;
       border-radius: 12px;
+    }
+    .B-Rund:hover{
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      padding: 12.25px 12.25px;
+    }
+    .scroll-right{
+      border: none;
+      padding: 20px 10px;
+      font-size: 30px;
+    }
+    .scroll-right:hover{
+      background-color:rgba(211, 206, 206, 0.88);
     }
   </style>
 </head>
@@ -111,17 +125,16 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto gap-3">
           <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='default.asp'">Startseite</button>
+            <button class="B-Rund" onclick="document.location='https://www.google.de'">Startseite</button>
           </li>
           <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='default.asp'">Rezepte</button>
+            <button class="B-Rund" onclick="document.location='https://www.google.de'">Rezepte</button>
           </li>
           <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='default.asp'">Über Uns</button>
+            <button class="B-Rund" onclick="document.location='https://www.google.de'">Über Uns</button>
           </li>
           <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='default.asp'">Kontakt</button>
-            <!--<a class="nav-link text-dark fw-semibold" href="#">Kontakt</a>-->
+            <button class="B-Rund" onclick="document.location='https://www.google.de'">Kontakt</button>
           </li>
         </ul>
       </div>
@@ -158,46 +171,15 @@
       <section class="col-lg-9 order-lg-2 order-1">
         <div class="profile-container">
           <div class="profile-header">
-            <img src="https://via.placeholder.com/120" alt="Profilbild" class="profile-pic" />
             <div>
-              <h1 class="profile-name">Julia Koch</h1>
-              <p class="profile-bio">Leidenschaftliche Köchin und Food-Bloggerin. Hier findest du meine Lieblingsrezepte.</p>
+              <h1 class="profile-name">Neuste Rezepte</h1>
             </div>
           </div>
-
-          <div class="stats">
-            <div class="stat">
-              <div class="stat-number">150</div>
-              <div class="stat-label">Rezepte</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">20K</div>
-              <div class="stat-label">Follower</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">320</div>
-              <div class="stat-label">Bewertungen</div>
-            </div>
+          <button class="scroll-right" onclick="#"><</button>
+          <div class="bilder-neuste">
+             <img src="" alt="">
           </div>
-
-          <div class="recipes-section">
-            <h2>Neueste Rezepte</h2>
-            <div class="recipe-list">
-              <div class="recipe-card">
-                <h3 class="recipe-title">Spaghetti Carbonara</h3>
-                <p class="recipe-desc">Ein klassisches italienisches Pastagericht mit cremiger Sauce.</p>
-              </div>
-              <div class="recipe-card">
-                <h3 class="recipe-title">Vegane Buddha Bowl</h3>
-                <p class="recipe-desc">Bunte Mischung aus Gemüse, Reis und Hülsenfrüchten.</p>
-              </div>
-              <div class="recipe-card">
-                <h3 class="recipe-title">Schoko-Bananen Muffins</h3>
-                <p class="recipe-desc">Saftige Muffins mit Schokolade und Banane.</p>
-              </div>
-              <!-- Weitere Rezeptkarten -->
-            </div>
-          </div>
+          <button class="scroll-right" onclick="#">></button>
         </div>
       </section>
 
