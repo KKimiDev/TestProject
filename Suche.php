@@ -30,22 +30,23 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
   $sql = "SELECT Name, Author FROM Recipes INNER JOIN Tags ON (Tags.RecipeName = Recipes.Name AND Tags.RecipeAuthor = Recipes.Author) WHERE 1=1 ";
 
   if ($author != null)
-    $sql .= " AND Author = $author";
+    $sql .= " AND Author = $author ";
   
   if ($duration != -1) 
-    $sql .= "AND Duration <= $duration";
+    $sql .= "AND Duration <= $duration ";
   
-  if ($tagcount != 0)
-    $sql .= "AND (Tag = )";
-    foreach($tag in $tags) {
-      $sql .= "Tag = $tag OR";
+  if ($tagcount != 0) {
+    $sql .= "AND (";
+    foreach($tags as $tag) {
+      $sql .= "Tag = $tag OR ";
     }
     $sql .= "1=1)";
-  
+  }
+
   $sql .= "GROUP BY Recipes.Name, Recipes.Author ";
 
   if($tagcount != 0)
-    $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;"
+    $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;";
 
   $res = $conn->query($sql);
 ?>
