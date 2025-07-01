@@ -16,12 +16,16 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
   $author = null; 
   $duration = -1;
 
-  if(isset($_GET["Author"])) {
+  if(isset($_GET["Author"]) && trim($_GET["Author"]) != "") {
     $author = $_GET["Author"];
   }
 
-  if(isset($_GET["Duration"])) {
-    $duration = $_GET["Duration"];
+  if(isset($_GET["maxDuration"]) && trim($_GET["maxDuration"]) != "") {
+    try {
+      $duration = (int) $_GET["maxDuration"];
+    } catch (Exception $e) {
+      $duration = -1;
+    }
   }
 
   $tagcount = 1;
@@ -30,7 +34,7 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
   $sql = "SELECT Name, Author FROM Recipes INNER JOIN Tags ON (Tags.RecipeName = Recipes.Name AND Tags.RecipeAuthor = Recipes.Author) WHERE 1=1 ";
 
   if ($author != null)
-    $sql .= " AND Author = $author ";
+    $sql .= " AND Author = '$author' ";
   
   if ($duration != -1) 
     $sql .= "AND Duration <= $duration ";
@@ -38,15 +42,18 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
   if ($tagcount != 0) {
     $sql .= "AND (";
     foreach($tags as $tag) {
-      $sql .= "Tag = $tag OR ";
+      $sql .= "Tag = '$tag' OR ";
     }
-    $sql .= "1=1)";
+    $sql .= "1 = 2) ";
   }
+
 
   $sql .= "GROUP BY Recipes.Name, Recipes.Author ";
 
   if($tagcount != 0)
     $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;";
+
+  echo $sql;
 
   $res = $conn->query($sql);
 ?>
@@ -171,7 +178,7 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
 </script>
     <div class="mb-3">
       <label for="author" class="form-label">Autor</label>
-      <input type="text" name="author" id="author" class="form-control" placeholder="Autorname eingeben" />
+      <input type="text" name="Author" id="author" class="form-control" placeholder="Autorname eingeben" />
     </div>
 
     <div class="mb-3">
