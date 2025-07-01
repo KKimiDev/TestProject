@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezeptseite – Alternativ</title>
-
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -13,7 +12,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #faf8f5;
       color: #4b342f; /* dunkleres Braun für Text */
-      padding: 50px 0;
+      padding-top: 50px 0;
     }
 
     h1 {
@@ -24,6 +23,14 @@
       font-size: 2.8rem;
       letter-spacing: 1px;
       text-transform: uppercase;
+    }
+
+    footer {
+      background-color: #f9a825;
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+      font-weight: 600;
     }
 
     .recipe-card {
@@ -90,40 +97,43 @@
       box-shadow: 0 12px 30px rgba(249, 168, 37, 0.45);
       transform: translateY(-5px);
     }
+
+    .carousel-inner img {
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+    }
   </style>
 </head>
 <body>
 
   <h1>Leckeres Rezept</h1>
 
-
-  <!-- Rezeptkarte -->
-  <div class="recipe-card" tabindex="0" role="article" aria-label="Rezept Schoko-Bananen-Pancakes">
-    <!-- Bootstrap Carousel -->
-  <div id="recipeCarousel" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
+  <!-- Bilder Slideshow (Carousel oben) -->
+  <div id="imageCarousel" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <h3 class="recipe-title">Schritt 1: Bananen zerdrücken</h3>
-        <p>Die reifen Bananen zerdrücken, bis sie eine weiche, breiige Konsistenz haben.</p>
+        <img src="rsc/pancake1.jpg" class="d-block w-100" alt="Schritt 1: Bananen zerdrücken">
       </div>
       <div class="carousel-item">
-        <h3 class="recipe-title">Schritt 2: Zutaten vermengen</h3>
-        <p>Die Bananen mit Eiern, Milch und Mehl vermengen.</p>
+        <img src="rsc/pancake2.jpeg" class="d-block w-100" alt="Schritt 2: Zutaten vermengen">
       </div>
       <div class="carousel-item">
-        <h3 class="recipe-title">Schritt 3: Pancakes ausbacken</h3>
-        <p>Die Mischung in der Pfanne ausbacken, bis sie goldbraun sind.</p>
+        <img src="rsc/pancake3.jpg" class="d-block w-100" alt="Schritt 3: Pancakes ausbacken">
       </div>
     </div>
-    <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
+    <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">Vorherige</span>
     </a>
-    <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
+    <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">Nächste</span>
     </a>
   </div>
+
+  <!-- Rezeptkarte -->
+  <div class="recipe-card" tabindex="0" role="article" aria-label="Rezept Schoko-Bananen-Pancakes">
     <h2 class="recipe-title">Schoko-Bananen-Pancakes</h2>
     <p class="recipe-desc">
       Fluffige Pancakes mit Banane und Schokostückchen – perfekt für ein gemütliches Frühstück!
@@ -141,8 +151,7 @@
     </p>
   </div>
 
-  
-  <!-- Bootstrap Carousel -->
+  <!-- Unteres Carousel (Repariert) -->
   <div id="recipeCarousel" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -168,10 +177,17 @@
     </a>
   </div>
 
+  <footer>
+    <div class="container">
+      &copy; 2025 RezepteSite - Alle Rechte vorbehalten
+    </div>
+  </footer>
+
   <!-- Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
+
 
