@@ -6,7 +6,7 @@
   <title>Rezeptseite – Alternativ</title>
 
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
   <style>
     body {
@@ -76,12 +76,28 @@
       color: #4b342f;
       line-height: 1.6;
     }
+
+    /* Stil für das Carousel */
+    .carousel-item {
+      background: #fff3e0;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(249, 168, 37, 0.25);
+      padding: 30px;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    .carousel-item:hover {
+      box-shadow: 0 12px 30px rgba(249, 168, 37, 0.45);
+      transform: translateY(-5px);
+    }
   </style>
 </head>
 <body>
 
   <h1>Leckeres Rezept</h1>
 
+
+  <!-- Rezeptkarte -->
   <div class="recipe-card" tabindex="0" role="article" aria-label="Rezept Schoko-Bananen-Pancakes">
     <h2 class="recipe-title">Schoko-Bananen-Pancakes</h2>
     <p class="recipe-desc">
@@ -100,8 +116,37 @@
     </p>
   </div>
 
+  
+  <!-- Bootstrap Carousel -->
+  <div id="recipeCarousel" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <h3 class="recipe-title">Schritt 1: Bananen zerdrücken</h3>
+        <p>Die reifen Bananen zerdrücken, bis sie eine weiche, breiige Konsistenz haben.</p>
+      </div>
+      <div class="carousel-item">
+        <h3 class="recipe-title">Schritt 2: Zutaten vermengen</h3>
+        <p>Die Bananen mit Eiern, Milch und Mehl vermengen.</p>
+      </div>
+      <div class="carousel-item">
+        <h3 class="recipe-title">Schritt 3: Pancakes ausbacken</h3>
+        <p>Die Mischung in der Pfanne ausbacken, bis sie goldbraun sind.</p>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Vorherige</span>
+    </a>
+    <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Nächste</span>
+    </a>
+  </div>
+
   <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
+
