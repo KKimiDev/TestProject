@@ -110,7 +110,9 @@
       </div>
       
       <script>
-        
+        function open_recipe(name) {
+          window.location.href = "Rezept/<?php echo $profile["Username"];?>/" + name;
+        }
       </script>
 
       <div class="recipes-section">
@@ -120,7 +122,7 @@
           $i = 0;
           while (($row = $recipes->fetch_assoc()) && $i < 3) {
             echo 
-          '<div class="recipe-card" onclick="">
+          '<div class="recipe-card" onclick="open_recipe('."'$row[Name]'".')">
             <div class="recipe-title">' . $row["Name"] . '</div>
             <div class="recipe-desc">' . $row["Description"] . '</div>
           </div>';
