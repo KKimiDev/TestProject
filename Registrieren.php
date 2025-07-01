@@ -26,18 +26,12 @@
         <?php
 session_start();
 
-require_once("database_login.php");
+require_once("Database.php");
 
 $login_error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['guest']) && $_POST['guest'] == 'true') {
-        // Gastzugang
-        $_SESSION['guest'] = true;
-        header("Location: index.php");
-        exit();
-    }
-    $usr = htmlspecialchars($_POST['usr']);
+    $usr = $conn->real_escape_string(htmlspecialchars($_POST['usr']));
     $pass = htmlspecialchars($_POST['pwd']);
 
     $sql = "SELECT * FROM Users WHERE Username=:usr";
@@ -51,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($pass, $user['Password'])) {
             // Login erfolgreich
             $_SESSION['usr'] = $user['Username'];
-            
+
             header("Location: index.php");
             exit();
         } else {
@@ -66,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
         <div class="login-container">
-        <h2>Login</h2>
+        <h2>Registrieren</h2>
         <form method="POST" action="">
             <label for="email">Nutzername</label>
             <input type="text" id="email" name="usr" placeholder="Nutzername eingeben" required>
@@ -77,10 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="forgot-password">Passwort vergessen?</div>
 
             <button type="submit">Anmelden</button>
-            <div class="register"><a href="Registrieren">Registrieren</a></div>
+            <div class="register"><a href="Login">Login</a></div>
         </form>
-        <form method="POST" action="">
-            <input style="display: none;" type="text" name="guest" value="true" />
         </div>
     </body>
 </html>

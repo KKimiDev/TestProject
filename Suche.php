@@ -1,5 +1,12 @@
 <?php
 require_once("database_login.php");
+require_once("check_login.php");
+
+if (!isset($_SESSION['usr']) && !isset($_SESSION['guest'])) {
+    // Benutzer ist nicht eingeloggt → zur Login-Seite weiterleiten
+    header("Location: login.php");
+    exit;
+}
 
 // standard tags
 $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 'Glutenfrei', 'LowCarb', 'Frühstück', 'Sommer'];
@@ -31,7 +38,7 @@ if(isset($_GET["maxDuration"]) && trim($_GET["maxDuration"]) != "") {
 
 $sql = "SELECT Name, Author, Description FROM Recipes LEFT JOIN Tags ON (Tags.RecipeName = Recipes.Name AND Tags.RecipeAuthor = Recipes.Author) WHERE 1=1 ";
 
-/*
+
 if ($author != null)
   $sql .= " AND Author = :author ";
 
@@ -52,35 +59,32 @@ if ($tagcount != 0) {
 }
 
 
-$sql .= "GROUP BY Recipes.Name, Recipes.Author ";
+$sql .= "GROUP BY Recipes.Name, Recipes.Author, Recipes.Description ";
 
 if($tagcount != 0)
   $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;";
 
 echo $sql;
-*/
+
 
 $stmt = $pdo->prepare($sql);
 
-/*
 $i = 0;
 foreach ($tags as $tag) {
     $stmt->bindValue(":tag$i", trim($tag));
     $i++;
 }
 
+
 if ($author != null)  
   $stmt->bindValue(":author", trim($author));
 
 if ($duration != -1)
   $stmt->bindValue(":duration", trim($duration));
-*/
+
 
 // Bind the value to the placeholder and execute
 $stmt->execute();
-
-if(!$stmt->fetch())
-  echo "no";
 
 ?>
 
@@ -92,7 +96,7 @@ if(!$stmt->fetch())
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezeptsuche</title>
 
-  <link href="/sites/Rezepte/css/style.css"/>
+  <link href="/sites/Rezepte/css/style.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
     /* Beispiel Styles für Tag-Chips */
@@ -225,13 +229,13 @@ if(!$stmt->fetch())
     <div id="results" class="row g-4">
       <script>
         function open_recipe(author, name) {
-          window.location.href = author + "/" + name;
+          window.location.href = "Rezept/" + author + "/" + name;
         }
       </script>
       <!-- Hier kommen Rezept-Karten rein -->
        <?php
         while(($row = $stmt->fetch())) {
-          echo '<div class="recipe-card" onclick="open_recipe('."'$row[Author]'"."'$row[Name]'".')">
+          echo '<div class="recipe-card" onclick="open_recipe('."'$row[Author]',"."'$row[Name]'".')">
             <div class="recipe-title">' . $row["Name"] . '</div>
             <div class="recipe-desc">' . $row["Description"] . '</div>
           </div>';
