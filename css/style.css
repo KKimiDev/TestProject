@@ -64,14 +64,6 @@ body {
   padding: 30px;
 }
 
-.profile-header {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  border-bottom: 2px solid #f0e6d2;
-  padding-bottom: 25px;
-  margin-bottom: 30px;
-}
 
 .profile-pic {
   width: 120px;
@@ -115,9 +107,6 @@ body {
   color: #777;
 }
 
-.recipes-section {
-  margin-top: 20px;
-}
 
 .recipes-section h2 {
   font-weight: 700;
@@ -126,11 +115,6 @@ body {
   margin-bottom: 20px;
 }
 
-.recipe-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-  gap: 20px;
-}
 
 .recipe-card {
   background: #fff3e0;
@@ -139,6 +123,27 @@ body {
   box-shadow: 0 2px 8px rgba(249,168,37,0.3);
   cursor: pointer;
   transition: transform 0.2s ease;
+}
+
+/* Abstand zwischen Profilinformationen und Rezepten */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  border-bottom: 2px solid #f0e6d2;
+  padding-bottom: 25px;
+  margin-bottom: 30px;
+}
+
+.recipes-section {
+  margin-top: 40px; /* Etwas mehr Abstand zwischen Profil und Rezepten */
+}
+
+.recipe-list {
+  display: flex;
+  flex-wrap: wrap; /* Zeilenumbruch ermöglichen */
+  justify-content: center; /* Zentriert die Karten */
+  gap: 20px;
 }
 
 .recipe-card:hover {
@@ -286,6 +291,12 @@ h1 {
       margin: 10%;
       color: #aaa;
       font-style: italic;
+    }
+
+    .veraenderung {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0;
     }
 
     
