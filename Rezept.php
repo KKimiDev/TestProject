@@ -99,6 +99,31 @@
 
   <!-- Rezeptkarte -->
   <div class="recipe-card" tabindex="0" role="article" aria-label="Rezept Schoko-Bananen-Pancakes">
+    <!-- Bootstrap Carousel -->
+  <div id="recipeCarousel" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <h3 class="recipe-title">Schritt 1: Bananen zerdrücken</h3>
+        <p>Die reifen Bananen zerdrücken, bis sie eine weiche, breiige Konsistenz haben.</p>
+      </div>
+      <div class="carousel-item">
+        <h3 class="recipe-title">Schritt 2: Zutaten vermengen</h3>
+        <p>Die Bananen mit Eiern, Milch und Mehl vermengen.</p>
+      </div>
+      <div class="carousel-item">
+        <h3 class="recipe-title">Schritt 3: Pancakes ausbacken</h3>
+        <p>Die Mischung in der Pfanne ausbacken, bis sie goldbraun sind.</p>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Vorherige</span>
+    </a>
+    <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Nächste</span>
+    </a>
+  </div>
     <h2 class="recipe-title">Schoko-Bananen-Pancakes</h2>
     <p class="recipe-desc">
       Fluffige Pancakes mit Banane und Schokostückchen – perfekt für ein gemütliches Frühstück!
