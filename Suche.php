@@ -29,19 +29,24 @@ if(isset($_GET["maxDuration"]) && trim($_GET["maxDuration"]) != "") {
   }
 }
 
-$sql = "SELECT Name, Author FROM Recipes INNER JOIN Tags ON (Tags.RecipeName = Recipes.Name AND Tags.RecipeAuthor = Recipes.Author) WHERE 1=1 ";
+$sql = "SELECT Name, Author, Description FROM Recipes LEFT JOIN Tags ON (Tags.RecipeName = Recipes.Name AND Tags.RecipeAuthor = Recipes.Author) WHERE 1=1 ";
 
+/*
 if ($author != null)
-  $sql .= " AND Author = '$author' ";
+  $sql .= " AND Author = :author ";
 
 if ($duration != -1) 
-  $sql .= "AND Duration <= $duration ";
+  $sql .= "AND Duration <= :duration ";
+
+
 
 if ($tagcount != 0) {
   $sql .= "AND (";
+  $i = 0;
   foreach($tags as $tag) {
     $tag = trim($tag);
-    $sql .= "Tag = '$tag' OR ";
+    $sql .= "Tag = :tag$i OR ";
+    $i += 1;
   }
   $sql .= "1 = 2) ";
 }
@@ -53,8 +58,30 @@ if($tagcount != 0)
   $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;";
 
 echo $sql;
+*/
 
-$res = $conn->query($sql);
+$stmt = $pdo->prepare($sql);
+
+/*
+$i = 0;
+foreach ($tags as $tag) {
+    $stmt->bindValue(":tag$i", trim($tag));
+    $i++;
+}
+
+if ($author != null)  
+  $stmt->bindValue(":author", trim($author));
+
+if ($duration != -1)
+  $stmt->bindValue(":duration", trim($duration));
+*/
+
+// Bind the value to the placeholder and execute
+$stmt->execute();
+
+if(!$stmt->fetch())
+  echo "no";
+
 ?>
 
 <!DOCTYPE html>
@@ -64,6 +91,8 @@ $res = $conn->query($sql);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezeptsuche</title>
+
+  <link href="/sites/Rezepte/css/style.css"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
     /* Beispiel Styles für Tag-Chips */
@@ -194,10 +223,18 @@ $res = $conn->query($sql);
   <section>
     <h2>Suchergebnisse</h2>
     <div id="results" class="row g-4">
+      <script>
+        function open_recipe(author, name) {
+          window.location.href = author + "/" + name;
+        }
+      </script>
       <!-- Hier kommen Rezept-Karten rein -->
        <?php
-        while(($row = $res->fetch_assoc())) {
-          echo "$row[Name] ... $row[Author]";
+        while(($row = $stmt->fetch())) {
+          echo '<div class="recipe-card" onclick="open_recipe('."'$row[Author]'"."'$row[Name]'".')">
+            <div class="recipe-title">' . $row["Name"] . '</div>
+            <div class="recipe-desc">' . $row["Description"] . '</div>
+          </div>';
         }
        ?>
     </div>
