@@ -104,11 +104,58 @@
     }
     .scroll-right{
       border: none;
-      padding: 20px 10px;
+      height: 122px;
+      width: 40px;
       font-size: 30px;
     }
     .scroll-right:hover{
       background-color:rgba(211, 206, 206, 0.88);
+    }
+    .scroll-left{
+      border: none;
+      height: 122px;
+      width: 40px;
+      font-size: 30px;
+    }
+    .scroll-left:hover{
+      background-color:rgba(211, 206, 206, 0.88);
+    }
+    .scroll-container {
+      width: 80%;              
+      overflow-x: auto;         
+      white-space: nowrap;      
+      border: 1px solid #ccc;
+      padding-bottom: 10px;
+      scrollbar-width: thin;    
+    }
+    .scroll-container::-webkit-scrollbar {
+      height: 8px;             
+    }
+    .scroll-container::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+    .scroll-container::-webkit-scrollbar-track {
+      background: #eee;
+    }
+    .scroll-container img {
+      display: inline-block;
+      width: 150px;             
+      height: 100px;
+      object-fit: cover;
+      margin-right: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .scroll-container img:last-child {
+      margin-right: 0;
+    }
+    .scroll-container img:hover {
+      transform: scale(1.05);
+    }
+    .flex-bilder{
+      display: flex;
     }
   </style>
 </head>
@@ -175,11 +222,18 @@
               <h1 class="profile-name">Neuste Rezepte</h1>
             </div>
           </div>
-          <button class="scroll-right" onclick="#"><</button>
-          <div class="bilder-neuste">
-             <img src="" alt="">
+          <div class=flex-bilder>
+            <div> <button class="scroll-left" onclick="#"><</button> </div>
+            <div class="scroll-container">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+            </div>
+            <div> <button class="scroll-right" onclick="#">></button> </div>
           </div>
-          <button class="scroll-right" onclick="#">></button>
         </div>
       </section>
 
