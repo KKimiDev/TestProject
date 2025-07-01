@@ -1,61 +1,60 @@
 <?php
-// Datenbankverbindung
-  $servername = "localhost";
-  $username = "root"; // Standard bei XAMPP
-  $password = "";
-  $dbname = "Rezepte";
+require_once("database_login.php");
 
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  if ($conn->connect_error) {
-    die("Verbindung fehlgeschlagen: " . $conn->connect_error);
-  }
-
-// Beispiel: PHP Teil für Tag-Liste (kann dynamisch aus DB kommen)
+// standard tags
 $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 'Glutenfrei', 'LowCarb', 'Frühstück', 'Sommer'];
 
-  $author = null; 
-  $duration = -1;
+// search params
+$author = null; 
+$duration = -1;
+$tagcount = 0;
+$tags = [];
 
-  if(isset($_GET["Author"]) && trim($_GET["Author"]) != "") {
-    $author = $_GET["Author"];
+// build sql
+
+if(isset($_GET["tags"]) && trim($_GET["tags"]) != "") {
+  $tags = explode(',', trim($_GET["tags"]));
+  $tagcount = count($tags);
+}
+
+if(isset($_GET["Author"]) && trim($_GET["Author"]) != "") {
+  $author = $_GET["Author"];
+}
+
+if(isset($_GET["maxDuration"]) && trim($_GET["maxDuration"]) != "") {
+  try {
+    $duration = (int) $_GET["maxDuration"];
+  } catch (Exception $e) {
+    $duration = -1;
   }
+}
 
-  if(isset($_GET["maxDuration"]) && trim($_GET["maxDuration"]) != "") {
-    try {
-      $duration = (int) $_GET["maxDuration"];
-    } catch (Exception $e) {
-      $duration = -1;
-    }
+$sql = "SELECT Name, Author FROM Recipes INNER JOIN Tags ON (Tags.RecipeName = Recipes.Name AND Tags.RecipeAuthor = Recipes.Author) WHERE 1=1 ";
+
+if ($author != null)
+  $sql .= " AND Author = '$author' ";
+
+if ($duration != -1) 
+  $sql .= "AND Duration <= $duration ";
+
+if ($tagcount != 0) {
+  $sql .= "AND (";
+  foreach($tags as $tag) {
+    $tag = trim($tag);
+    $sql .= "Tag = '$tag' OR ";
   }
-
-  $tagcount = 1;
-  $tags = ["Avocado"];
-
-  $sql = "SELECT Name, Author FROM Recipes INNER JOIN Tags ON (Tags.RecipeName = Recipes.Name AND Tags.RecipeAuthor = Recipes.Author) WHERE 1=1 ";
-
-  if ($author != null)
-    $sql .= " AND Author = '$author' ";
-  
-  if ($duration != -1) 
-    $sql .= "AND Duration <= $duration ";
-  
-  if ($tagcount != 0) {
-    $sql .= "AND (";
-    foreach($tags as $tag) {
-      $sql .= "Tag = '$tag' OR ";
-    }
-    $sql .= "1 = 2) ";
-  }
+  $sql .= "1 = 2) ";
+}
 
 
-  $sql .= "GROUP BY Recipes.Name, Recipes.Author ";
+$sql .= "GROUP BY Recipes.Name, Recipes.Author ";
 
-  if($tagcount != 0)
-    $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;";
+if($tagcount != 0)
+  $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;";
 
-  echo $sql;
+echo $sql;
 
-  $res = $conn->query($sql);
+$res = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -130,6 +129,8 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
         } else {
           span.classList.add("active");
         }
+
+        update_hidden_input();
       }
 
     </script>
@@ -138,7 +139,7 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
       <label class="form-label">Tags auswählen</label>
       <div id="tagsContainer" class="mb-2">
         <?php foreach ($allTags as $tag): ?>
-          <span onclick="toggleSelect(this); update_hidden_input();" class="tag-chip" data-tag="<?= htmlspecialchars($tag) ?>"><?= htmlspecialchars($tag) ?></span>
+          <span onclick="toggleSelect(this); " class="tag-chip" data-tag="<?= htmlspecialchars($tag) ?>"><?= htmlspecialchars($tag) ?></span>
           <?php endforeach; ?>
       </div>
       <input id = "tags" style="display: none;" type="text" name="tags" value=""/>
