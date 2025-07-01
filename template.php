@@ -102,26 +102,8 @@
       box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
       padding: 12.25px 12.25px;
     }
-    .scroll-right{
-      border: none;
-      height: 122px;
-      width: 40px;
-      font-size: 30px;
-    }
-    .scroll-right:hover{
-      background-color:rgba(211, 206, 206, 0.88);
-    }
-    .scroll-left{
-      border: none;
-      height: 122px;
-      width: 40px;
-      font-size: 30px;
-    }
-    .scroll-left:hover{
-      background-color:rgba(211, 206, 206, 0.88);
-    }
     .scroll-container {
-      width: 80%;              
+      width: 100%;              
       overflow-x: auto;         
       white-space: nowrap;      
       border: 1px solid #ccc;
@@ -156,6 +138,13 @@
     }
     .flex-bilder{
       display: flex;
+    }
+    .foto_head{
+      width: 150px;
+      height: 20px;
+      align: center;
+      margin-right: 10px;
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -222,8 +211,19 @@
               <h1 class="profile-name">Neuste Rezepte</h1>
             </div>
           </div>
+          <div>
+              <table>
+                <tr>
+                  <th class=foto_head>Bild 1</th>
+                  <th class=foto_head>Bild 2</th>
+                  <th class=foto_head>Bild 3</th>
+                  <th class=foto_head>Bild 4</th>
+                  <th class=foto_head>Bild 5</th>
+                  <th class=foto_head>Bild 6</th>
+                </tr>
+              </table>
+            </div>
           <div class=flex-bilder>
-            <div> <button class="scroll-left" onclick="#"><</button> </div>
             <div class="scroll-container">
               <img src="" alt="">
               <img src="" alt="">
@@ -232,7 +232,6 @@
               <img src="" alt="">
               <img src="" alt="">
             </div>
-            <div> <button class="scroll-right" onclick="#">></button> </div>
           </div>
         </div>
       </section>
