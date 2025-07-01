@@ -7,6 +7,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # Route /something to something.php
 RewriteRule ^([^/]+)/?$ $1.php [L,QSA]
 
+
 # Route /Profil/username to Profil.php?nutzer=username
 RewriteRule ^Profil/([^/]+)/?$ Profil.php?name=$1 [L,QSA]
 

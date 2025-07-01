@@ -1,5 +1,5 @@
 <?php
-  
+  require_once("check_login.php")
   
   $profile_name = $_GET["name"];
   // Datenbankverbindung
