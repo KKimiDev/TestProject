@@ -87,8 +87,10 @@
       text-decoration: underline;
     }
     .B-Rund{
-      background-color:rgb(124, 116, 116);
-      padding: 15px;
+      background-color: #f9a825;
+      padding: 12px;
+      border: none;
+      color: white;
       text-align: center;
       text-decoration: none;
       display: inline-block;
@@ -121,7 +123,6 @@
           </li>
           <li class="nav-item">
             <button class="B-Rund" onclick="document.location='default.asp'">Kontakt</button>
-            <!--<a class="nav-link text-dark fw-semibold" href="#">Kontakt</a>-->
           </li>
         </ul>
       </div>
