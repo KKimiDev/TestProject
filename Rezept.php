@@ -13,6 +13,7 @@ if(isset($_GET["Author"]))
 //else
   //header("location: index");
 
+// Recipe
 
 $sql = "SELECT * FROM Recipes WHERE Name = :name AND Author = :author";
 $stmt = $pdo->prepare($sql);
@@ -22,7 +23,65 @@ $stmt->execute(['name' => $name, 'author' => $author]);
 
 $recipe = $stmt->fetch();
 
-echo $recipe["Name"];
+
+
+// Images
+
+$sql = "SELECT * FROM Recipes INNER JOIN Images ON (Recipes.Name = Images.RecipeName AND Recipes.Author = Images.RecipeAuthor) WHERE Name = :name AND Author = :author";
+$stmt = $pdo->prepare($sql);
+
+// Bind the value to the placeholder and execute
+$stmt->execute(['name' => $name, 'author' => $author]);
+
+$imgs = [];
+while($row = $stmt->fetch()) {
+  array_push($imgs, $row);
+}
+
+
+
+// Steps
+
+$sql = "SELECT * FROM Recipes INNER JOIN Steps ON (Recipes.Name = Steps.RecipeName AND Recipes.Author = Steps.RecipeAuthor) WHERE Name = :name AND Author = :author";
+$stmt = $pdo->prepare($sql);
+
+// Bind the value to the placeholder and execute
+$stmt->execute(['name' => $name, 'author' => $author]);
+
+$steps = [];
+while($row = $stmt->fetch()) {
+  array_push($steps, $row);
+}
+
+
+
+// Ingredients
+
+$sql = "SELECT * FROM Recipes INNER JOIN Ingredients ON (Recipes.Name = Ingredients.RecipeName AND Recipes.Author = Ingredients.RecipeAuthor) WHERE Name = :name AND Author = :author";
+$stmt = $pdo->prepare($sql);
+
+// Bind the value to the placeholder and execute
+$stmt->execute(['name' => $name, 'author' => $author]);
+
+$ingredients = [];
+while($row = $stmt->fetch()) {
+  array_push($ingredients, $row);
+}
+
+
+
+// Utilities
+
+$sql = "SELECT * FROM Recipes INNER JOIN Utilities ON (Recipes.Name = Utilities.RecipeName AND Recipes.Author = Utilities.RecipeAuthor) WHERE Name = :name AND Author = :author";
+$stmt = $pdo->prepare($sql);
+
+// Bind the value to the placeholder and execute
+$stmt->execute(['name' => $name, 'author' => $author]);
+
+$utilities = [];
+while($row = $stmt->fetch()) {
+  array_push($utilities, $row);
+}
 
 //if(!$recipe || $stmt->fetch())
 //  header("location: index");
@@ -32,7 +91,6 @@ echo $recipe["Name"];
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <base href="/sites/Rezepte/"/>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezeptseite – Alternativ</title>
@@ -144,9 +202,9 @@ echo $recipe["Name"];
   <!-- Bilder Slideshow (Carousel oben) -->
   <div id="imageCarousel" data-bs-interval="false" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
     <div class="carousel-inner">
-      <?php foreach($images as $img): ?>
-      <div class="carousel-item active">
-        <img src="uploads/<?= $img; ?>" class="d-block w-100" alt="Schritt 1: Bananen zerdrücken">
+      <?php $_ = true; foreach($imgs as $img): ?>
+      <div class="carousel-item <?php if ($_) {echo "active"; $_ = false; }?>">
+        <img src="/sites/Rezepte/uploads/<?= $img["Path"]; ?>" class="d-block w-100" alt="Schritt 1: Bananen zerdrücken">
       </div>
       <?php endforeach; ?>
     </div>
@@ -162,30 +220,36 @@ echo $recipe["Name"];
 
   <!-- Rezeptkarte -->
   <div class="recipe-card" tabindex="0" role="article" aria-label="Rezept Schoko-Bananen-Pancakes">
-    <h2 class="recipe-title">Schoko-Bananen-Pancakes</h2>
+    <h2 class="recipe-title"><?= $recipe["Name"] ?></h2>
     <p class="recipe-desc">
-      Fluffige Pancakes mit Banane und Schokostückchen – perfekt für ein gemütliches Frühstück!
+      <?= $recipe["Description"] ?>
     </p>
+    <h3>Zutaten</h3>
     <ul class="ingredients">
-      <li>2 reife Bananen</li>
-      <li>150g Mehl</li>
-      <li>2 Eier</li>
-      <li>50g Zartbitterschokolade</li>
-      <li>150ml Milch</li>
-      <li>1 TL Backpulver</li>
+      <?php
+        foreach($ingredients as $ingredient) {
+          echo "<li>$ingredient[Ingredient]</li>";
+        }
+      ?>
     </ul>
-    <p class="preparation">
-      Zubereitung: Bananen zerdrücken, mit Eiern und Milch verrühren, Mehl & Backpulver dazugeben, Schokolade hacken und unterheben. In der Pfanne ausbacken und genießen!
-    </p>
+
+    <h3>Hilfsmittel</h3>
+    <ul class="ingredients">
+      <?php
+        foreach($utilities as $utility) {
+          echo "<li>$utility[Utility]</li>";
+        }
+      ?>
+    </ul>
   </div>
 
   <!-- Unteres Carousel (Repariert) -->
   <div id="recipeCarousel" class="carousel slide" data-bs-interval="false" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
     <div class="carousel-inner">
-      <?php foreach($steps as $step): ?>
+      <?php $_ = true; foreach($steps as $step): ?>
       <div class="carousel-item active">
-        <h3 class="recipe-title"><?= $step->title?></h3>
-        <p><?= $step->description ?></p>
+        <h3 class="recipe-title"><?php if ($_ = true) {echo $step["Title"]; $_ = false;}?></h3>
+        <p><?= $step["Explanation"] ?></p>
       </div>
       <?php endforeach; ?>
     </div>
