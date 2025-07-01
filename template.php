@@ -86,6 +86,16 @@
       color: #f9a825;
       text-decoration: underline;
     }
+    .B-Rund{
+      background-color:rgb(124, 116, 116);
+      padding: 15px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
@@ -101,16 +111,17 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto gap-3">
           <li class="nav-item">
-            <a class="nav-link text-dark fw-semibold" href="#">Startseite</a>
+            <button class="B-Rund" onclick="document.location='default.asp'">Startseite</button>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark fw-semibold" href="#">Rezepte</a>
+            <button class="B-Rund" onclick="document.location='default.asp'">Rezepte</button>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark fw-semibold" href="#">Über uns</a>
+            <button class="B-Rund" onclick="document.location='default.asp'">Über Uns</button>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark fw-semibold" href="#">Kontakt</a>
+            <button class="B-Rund" onclick="document.location='default.asp'">Kontakt</button>
+            <!--<a class="nav-link text-dark fw-semibold" href="#">Kontakt</a>-->
           </li>
         </ul>
       </div>
