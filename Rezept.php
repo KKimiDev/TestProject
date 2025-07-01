@@ -1,6 +1,38 @@
+<?php 
+require_once("database_login.php");
+
+$name = "";
+$author = "";
+
+if(isset($_GET["Name"]))
+  $name = $_GET["Name"];
+else
+  header("location: index");
+if(isset($_GET["Author"]))
+  $author = $_GET["Author"];
+//else
+  //header("location: index");
+
+
+$sql = "SELECT * FROM Recipes WHERE Name = :name AND Author = :author";
+$stmt = $pdo->prepare($sql);
+
+// Bind the value to the placeholder and execute
+$stmt->execute(['name' => $name, 'author' => $author]);
+
+$recipe = $stmt->fetch();
+
+echo $recipe["Name"];
+
+//if(!$recipe || $stmt->fetch())
+//  header("location: index");
+
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <base href="/sites/Rezepte/"/>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezeptseite – Alternativ</title>
@@ -107,20 +139,16 @@
 </head>
 <body>
 
-  <h1>Leckeres Rezept</h1>
+  <h1><?= $recipe["Name"] ?></h1>
 
   <!-- Bilder Slideshow (Carousel oben) -->
-  <div id="imageCarousel" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
+  <div id="imageCarousel" data-bs-interval="false" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
     <div class="carousel-inner">
+      <?php foreach($images as $img): ?>
       <div class="carousel-item active">
-        <img src="rsc/pancake1.jpg" class="d-block w-100" alt="Schritt 1: Bananen zerdrücken">
+        <img src="uploads/<?= $img; ?>" class="d-block w-100" alt="Schritt 1: Bananen zerdrücken">
       </div>
-      <div class="carousel-item">
-        <img src="rsc/pancake2.jpeg" class="d-block w-100" alt="Schritt 2: Zutaten vermengen">
-      </div>
-      <div class="carousel-item">
-        <img src="rsc/pancake3.jpg" class="d-block w-100" alt="Schritt 3: Pancakes ausbacken">
-      </div>
+      <?php endforeach; ?>
     </div>
     <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -152,20 +180,14 @@
   </div>
 
   <!-- Unteres Carousel (Repariert) -->
-  <div id="recipeCarousel" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
+  <div id="recipeCarousel" class="carousel slide" data-bs-interval="false" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
     <div class="carousel-inner">
+      <?php foreach($steps as $step): ?>
       <div class="carousel-item active">
-        <h3 class="recipe-title">Schritt 1: Bananen zerdrücken</h3>
-        <p>Die reifen Bananen zerdrücken, bis sie eine weiche, breiige Konsistenz haben.</p>
+        <h3 class="recipe-title"><?= $step->title?></h3>
+        <p><?= $step->description ?></p>
       </div>
-      <div class="carousel-item">
-        <h3 class="recipe-title">Schritt 2: Zutaten vermengen</h3>
-        <p>Die Bananen mit Eiern, Milch und Mehl vermengen.</p>
-      </div>
-      <div class="carousel-item">
-        <h3 class="recipe-title">Schritt 3: Pancakes ausbacken</h3>
-        <p>Die Mischung in der Pfanne ausbacken, bis sie goldbraun sind.</p>
-      </div>
+      <?php endforeach; ?>
     </div>
     <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -177,7 +199,7 @@
     </a>
   </div>
 
-  <footer>
+  <footer style="margin-top: 20px;">
     <div class="container">
       &copy; 2025 RezepteSite - Alle Rechte vorbehalten
     </div>
