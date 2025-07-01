@@ -1,16 +1,53 @@
 <?php
+// Datenbankverbindung
+  $servername = "localhost";
+  $username = "root"; // Standard bei XAMPP
+  $password = "";
+  $dbname = "Rezepte";
+
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  if ($conn->connect_error) {
+    die("Verbindung fehlgeschlagen: " . $conn->connect_error);
+  }
+
 // Beispiel: PHP Teil für Tag-Liste (kann dynamisch aus DB kommen)
 $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 'Glutenfrei', 'LowCarb', 'Frühstück', 'Sommer'];
 
   $author = null; 
+  $duration = -1;
 
+  if(isset($_GET["Author"])) {
+    $author = $_GET["Author"];
+  }
 
-  $sql = "SELECT * FROM Recipes WHERE "
+  if(isset($_GET["Duration"])) {
+    $duration = $_GET["Duration"];
+  }
+
+  $tagcount = 1;
+  $tags = ["Avocado"];
+
+  $sql = "SELECT Name, Author FROM Recipes INNER JOIN Tags ON (Tags.RecipeName = Recipes.Name AND Tags.RecipeAuthor = Recipes.Author) WHERE 1=1 ";
 
   if ($author != null)
     $sql .= " AND Author = $author";
   
-  if ()
+  if ($duration != -1) 
+    $sql .= "AND Duration <= $duration";
+  
+  if ($tagcount != 0)
+    $sql .= "AND (Tag = )";
+    foreach($tag in $tags) {
+      $sql .= "Tag = $tag OR";
+    }
+    $sql .= "1=1)";
+  
+  $sql .= "GROUP BY Recipes.Name, Recipes.Author ";
+
+  if($tagcount != 0)
+    $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;"
+
+  $res = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -114,8 +151,6 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
 
       // Set the data-tag attribute safely
       span.setAttribute('data-tag', tag);
-
-      span.classList.add("active")  
       
       span.addEventListener('click', () => {
         span.remove();  // Entfernt das Element aus dem DOM
@@ -126,6 +161,10 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
 
       // Now, append it somewhere in your DOM, for example:
       document.getElementById("tagsContainer").appendChild(span);
+
+      span.classList.add("active");
+
+      update_hidden_input();
     }
   });
 </script>
@@ -147,6 +186,11 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
     <h2>Suchergebnisse</h2>
     <div id="results" class="row g-4">
       <!-- Hier kommen Rezept-Karten rein -->
+       <?php
+        while(($row = $res->fetch_assoc())) {
+          echo "$row[Name] ... $row[Author]";
+        }
+       ?>
     </div>
   </section>
 </main>

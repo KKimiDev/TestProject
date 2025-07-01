@@ -1,6 +1,9 @@
 <?php
-  require_once("check_login.php")
+  // require_once("check_login.php")
   
+  if(!isset($_GET["name"]))
+    header("Location: index.php");
+
   $profile_name = $_GET["name"];
   // Datenbankverbindung
   $servername = "localhost";
