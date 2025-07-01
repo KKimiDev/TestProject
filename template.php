@@ -101,16 +101,17 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto gap-3">
           <li class="nav-item">
-            <a class="nav-link text-dark fw-semibold" href="#">Startseite</a>
+            <button onclick="document.location='default.asp'">Startseite</button>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark fw-semibold" href="#">Rezepte</a>
+            <button onclick="document.location='default.asp'">Rezepte</button>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark fw-semibold" href="#">Über uns</a>
+            <button onclick="document.location='default.asp'">Über Uns</button>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark fw-semibold" href="#">Kontakt</a>
+            <button onclick="document.location='default.asp'">Kontakt</button>
+            <!--<a class="nav-link text-dark fw-semibold" href="#">Kontakt</a>-->
           </li>
         </ul>
       </div>
