@@ -9,3 +9,5 @@ RewriteRule ^([^/]+)/?$ $1.php [L,QSA]
 
 # Route /Profil/username to Profil.php?nutzer=username
 RewriteRule ^Profil/([^/]+)/?$ Profil.php?name=$1 [L,QSA]
+
+RewriteRule ^Rezept/([^/]+)/([^/]+)/?$ Rezept.php?usr=$1&recipe=$2 [L,QSA]

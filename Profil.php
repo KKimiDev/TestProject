@@ -23,6 +23,9 @@
   } else {
     header("Location: index.php");
   }
+
+  $sql = "SELECT * FROM Recipes WHERE Author='$usr'";
+  $recipes = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -105,22 +108,27 @@
           <div class="stat-label">Lieblingsrezepte</div>
         </div>
       </div>
+      
+      <script>
+        function open_recipe(name) {
+          window.location.href = "Rezept/<?php echo $profile["Username"];?>/" + name;
+        }
+      </script>
 
       <div class="recipes-section">
         <h2>Beliebte Rezepte</h2>
         <div class="recipe-list">
-          <div class="recipe-card">
-            <div class="recipe-title">Avocado Toast Deluxe</div>
-            <div class="recipe-desc">Knuspriges Brot mit cremiger Avocado, Tomaten und frischem Basilikum.</div>
-          </div>
-          <div class="recipe-card">
-            <div class="recipe-title">Schneller Quinoa-Salat</div>
-            <div class="recipe-desc">Leicht, proteinreich und perfekt für den Sommer.</div>
-          </div>
-          <div class="recipe-card">
-            <div class="recipe-title">Vegane Schoko-Muffins</div>
-            <div class="recipe-desc">Saftig und schokoladig, ganz ohne tierische Produkte.</div>
-          </div>
+          <?php
+          $i = 0;
+          while (($row = $recipes->fetch_assoc()) && $i < 3) {
+            echo 
+          '<div class="recipe-card" onclick="open_recipe('."'$row[Name]'".')">
+            <div class="recipe-title">' . $row["Name"] . '</div>
+            <div class="recipe-desc">' . $row["Description"] . '</div>
+          </div>';
+            $i++;
+          }
+          ?>
         </div>
       </div>
     </div>
