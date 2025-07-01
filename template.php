@@ -87,13 +87,14 @@
       text-decoration: underline;
     }
     .B-Rund{
-      background-color:rgb(143, 116, 116);
-      padding: 20px;
+      background-color:rgb(124, 116, 116);
+      padding: 15px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
       font-size: 16px;
       margin: 4px 2px;
+      border-radius: 12px;
     }
   </style>
 </head>
