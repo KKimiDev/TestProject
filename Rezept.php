@@ -234,7 +234,7 @@ while($row = $stmt->fetch()) {
     <div style="justify-content: center; display: flex;">
   <h1 class="title-with-edit"><?= $recipe["Name"] ?>
   Rezept
-  <button <?php if(!isset($_SESSION["usr"]) || $_SESSION["usr"] != $author) {echo "style='display: none;'"; } ?> href='Rezeptbearbeiten/<?= $author ?>/<?= $name ?>' class="edit-btn" aria-label="Rezept bearbeiten" title="Rezept bearbeiten">
+  <button <?php if(!isset($_SESSION["usr"]) || $_SESSION["usr"] != $author) {echo "style='display: none;'"; } ?> onclick='window.location.href = "http://localhost/sites/Rezepte/Rezeptbearbeiten/<?= $author ?>/<?= $name ?>"' class="edit-btn" aria-label="Rezept bearbeiten" title="Rezept bearbeiten">
     <i class="bi bi-pencil-fill"></i>
   </button>
 </h1>
