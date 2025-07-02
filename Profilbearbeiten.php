@@ -14,7 +14,11 @@
       <img class="profile-pic" src="Bilder/R.png" alt="Profilbild von User" />
       <div>
         <div class="zsm">
-          <h1 class="veraenderung">Name:</h1>
+          <h1 class="veraenderung">Altes Passwort:</h1>
+          <form class="folgen">
+          <input type="text" placeholder="Altes Passwort">
+          </form>
+          <h1 class="veraenderung">Passwort:</h1>
           <form class="folgen">
             <input type="text" placeholder="Neues Passwort">
           </form>
@@ -28,24 +32,6 @@
       </div>
     </div>
 
-    <!-- Bereich für die Rezepte -->
-    <div class="recipes-section">
-      <h2>Beliebte Rezepte</h2>
-      <div class="recipe-list">
-        <div class="recipe-card">
-          <div class="recipe-title">Avocado Toast Deluxe</div>
-          <div class="recipe-desc">Knuspriges Brot mit cremiger Avocado, Tomaten und frischem Basilikum.</div>
-        </div>
-        <div class="recipe-card">
-          <div class="recipe-title">Schneller Quinoa-Salat</div>
-          <div class="recipe-desc">Leicht, proteinreich und perfekt für den Sommer.</div>
-        </div>
-        <div class="recipe-card">
-          <div class="recipe-title">Vegane Schoko-Muffins</div>
-          <div class="recipe-desc">Saftig und schokoladig, ganz ohne tierische Produkte.</div>
-        </div>
-      </div>
-    </div>
 
     <!-- Statistik bleibt unverändert -->
     <div class="stats">
