@@ -102,7 +102,7 @@ $descr = htmlspecialchars($stmt->fetch()["Description"]);
         <form class="form-section" method="POST" action="">
           <div class="form-group">
             <label for="beschreibung" class="form-label">Beschreibung:</label>
-            <input id="beschreibung" class="form-input" type="text" placeholder="Deine Profilbeschreibung" name="beschreibung" value="<?= htmlspecialchars($descr) ?>">
+            <textarea style="width: 100%" id="beschreibung" class="form-input" type="text" placeholder="Deine Profilbeschreibung" name="beschreibung"><?= htmlspecialchars($descr) ?></textarea>
           </div>
            <br>
           <button type="submit" name="bestaetigen" class="btn-primary">Bestätigen</button>
