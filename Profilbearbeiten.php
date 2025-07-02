@@ -16,7 +16,7 @@
         <div class="zsm">
           <h1 class="veraenderung">Name:</h1>
           <form class="folgen">
-            <input type="text" placeholder="Neuer Name">
+            <input type="text" placeholder="Neues Passwort">
           </form>
         </div>
         <div class="zsm">
