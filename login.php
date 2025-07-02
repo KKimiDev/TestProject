@@ -29,9 +29,10 @@ session_start();
 require_once("database_login.php");
 
 $login_error = 'display:none;';
+$register_error = 'display:none;';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['guest']) && $_POST['guest'] == 'true') {
+    if (isset($_POST['guest'])) {
         // Gastzugang
         $_SESSION['guest'] = true;
         header("Location: index.php");
@@ -45,29 +46,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute([':usr' => $usr]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if ($result && count($result) == 1) {
-        $user = $result[0];
-        // Passwort prüfen
-        if (password_verify($pass, $user['Password'])) {
-            // Login erfolgreich
-            $_SESSION['usr'] = $user['Username'];
-            
-            header("Location: index.php");
-            exit();
+    if(isset($_POST["login"])) {
+        if ($result && count($result) == 1) {
+            $user = $result[0];
+            // Passwort prüfen
+            if (password_verify($pass, $user['Password'])) {
+                // Login erfolgreich
+                $_SESSION['usr'] = $user['Username'];
+                
+                header("Location: index.php");
+                exit();
+            } else {
+                $login_error = "";
+            }
         } else {
             $login_error = "";
-            echo "FehlerPWD";
         }
-    } else {
-        $login_error = "";
+    } else if (isset($_POST["register"])) {
+        if (count($result) == 0) {
+            // Passwort hashen
+            $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
 
-        echo "Fehler";
+            // Benutzer in DB einfügen
+            $insert_sql = "INSERT INTO Users (Username, Password, Description) VALUES (:usr, :pass, '')";
+            $insert_stmt = $pdo->prepare($insert_sql);
+            $insert_success = $insert_stmt->execute([
+                ':usr' => $usr,
+                ':pass' => $hashed_password
+            ]);
+
+            if ($insert_success) {
+                // Direkt nach Registrierung einloggen und weiterleiten
+                $_SESSION['usr'] = $usr;
+                header("Location: index.php");
+                exit();
+            } else {
+                // Fehler beim Einfügen
+                $register_error = "";
+            }
+        } else {
+            $register_error = "";
+        }
     }
 }
 ?>
         <!-- Alert for wrong username or password -->
         <div class="alert alert-danger" role="alert" style="<?= $login_error ?>" >
-        ❌ Username or password is incorrect. Please try again.
+        ❌ Nutzername oder Passwort ist falsch. Bitte versuchen Sie es erneut.
+        </div>
+        <!-- Alert for wrong username or password -->
+        <div class="alert alert-danger" role="alert" style="<?= $register_error ?>" >
+        ❌ Nutzername ist vergeben. Bitte wählen Sie einen anderen.
         </div>
         <div class="login-container">
         <h2>Login</h2>
@@ -81,12 +110,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="forgot-password">Passwort vergessen?</div>
 
             <button type="submit" name="login">Anmelden</button>
-            <input type="submit" name="registrieren" style="display:none;">
-            <div class="register"><a href="#" onclick="document.querySelector('input[name=registrieren]').click(); return false;">Registrieren</a></div>
+            <input type="submit" name="register" style="display:none;">
+            <div class="register"><a href="#" onclick="document.querySelector('input[name=register]').click(); return false;">Registrieren</a></div>
             
         </form>
-        <form method="POST" action="">
-            <input style="display: none;" type="text" name="guest" value="true" />
+        <form method="POST" action="" style="margin-top: 20px;">
+            <input style="display: none;" type="submit" name="guest" value="true" />
+            <div class="register"><a href="#" onclick="document.querySelector('input[name=guest]').click(); return false;">Gastzugang</a></div>
         </div>
     </body>
 </html>
