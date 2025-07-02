@@ -92,6 +92,7 @@ while($row = $stmt->fetch()) {
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <?php include("templates/head.php"); ?>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezeptseite – Alternativ</title>
@@ -231,6 +232,8 @@ while($row = $stmt->fetch()) {
   </style>
 </head>
 <body>
+<?php include("templates/navbar.php"); ?>
+
     <div style="justify-content: center; display: flex;">
   <h1 class="title-with-edit"><?= $recipe["Name"] ?>
   Rezept
