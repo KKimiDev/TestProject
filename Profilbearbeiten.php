@@ -9,56 +9,51 @@ if(isset($_SESSION["guest"])) {
 
 $username = $_SESSION["usr"];
 
-
 // Initialisieren von Variablen
 $altpass = $neupass = $beschreibung = "";
 $fehler = "";
 
 // Prüfen, ob das Formular gesendet wurde
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Hier kann die Eingabe validiert und bearbeitet werden
+    // Eingabewerte holen
     $altpass = $_POST['altpasswort'] ?? '';
     $neupass = $_POST['neupasswort'] ?? '';
     $beschreibung = $_POST['beschreibung'] ?? '';
 
-    // Beispielhafte Validierung (Hier können auch noch mehr Sicherheitschecks eingefügt werden)
+    // Überprüfen, ob die Passworte eingegeben wurden
     if (empty($altpass) || empty($neupass)) {
         $fehler = "Bitte beide Passwörter eingeben.";
     } else {
-        $altpass_hash = password_hash($altpass, PASSWORD_DEFAULT);
-
-        // Hier würde normalerweise das Passwort gehasht und in einer Datenbank gespeichert werden
-        // z.B.:
-
-        $neupass_hash = password_hash($neupass, PASSWORD_DEFAULT);
-
+        // SQL-Abfrage: Hole das gehashte Passwort des Benutzers
         $sql = "SELECT Password FROM users WHERE Username = :username";
-       
         $stmt = $pdo->prepare($sql);
-
-        // Bind the value to the placeholder and execute
         $stmt->execute(['username' => $username]);
-
+        
         $pwd = $stmt->fetch();
 
-        if($pwd) {
-          if (password_verify($_POST['altpasswort'], $pwd)) {
-            $sql = "UPDATE users SET Password = $neupass_hash WHERE Username = :username";
-            $stmt->execute(['username' => $username]);
+        // Passwort überprüfen
+        if ($pwd && password_verify($altpass, $pwd['Password'])) {
+            // Passwort hashen
+            $neupass_hash = password_hash($neupass, PASSWORD_DEFAULT);
 
-            } else {
-            $fehler = "Bitte beide Passwörter eingeben.";
-            }
+            // SQL-Abfrage: Passwort in der Datenbank aktualisieren
+            $sql = "UPDATE users SET Password = :newpass WHERE Username = :username";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['newpass' => $neupass_hash, 'username' => $username]);
+
+            echo "Passwortänderung erfolgreich!";
+        } else {
+            $fehler = "Das alte Passwort ist falsch.";
         }
-
-        echo "Passwortänderung erfolgreich!";
-        // Hier kann z.B. auch die Datenbank aktualisiert werden
     }
+    
+    $sql = "UPDATE users SET Description = :beschreibung WHERE Username = :username";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['beschreibung' => $beschreibung, 'username' => $username]);
 }
 
-
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="de">
