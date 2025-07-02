@@ -1,5 +1,9 @@
 
+<?php
+session_start();
 
+require_once("database_login.php");
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -165,9 +169,6 @@
     </head>
     <body>
         <?php
-session_start();
-
-require_once("database_login.php");
 
 $login_error = 'display:none;';
 $register_error = 'display:none;';
