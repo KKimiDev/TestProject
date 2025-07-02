@@ -28,7 +28,7 @@ session_start();
 
 require_once("database_login.php");
 
-$login_error = '';
+$login_error = 'display:none;';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['guest']) && $_POST['guest'] == 'true') {
@@ -55,16 +55,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: index.php");
             exit();
         } else {
-            $login_error = "Falsches Passwort.";
+            $login_error = "";
             echo "FehlerPWD";
         }
     } else {
-        $login_error = "Benutzer nicht gefunden.";
+        $login_error = "";
 
         echo "Fehler";
     }
 }
 ?>
+        <!-- Alert for wrong username or password -->
+        <div class="alert alert-danger" role="alert" style="<?= $login_error ?>" >
+        ❌ Username or password is incorrect. Please try again.
+        </div>
         <div class="login-container">
         <h2>Login</h2>
         <form method="POST" action="">
@@ -76,8 +80,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="forgot-password">Passwort vergessen?</div>
 
-            <button type="submit">Anmelden</button>
-            <div class="register"><a href="Registrieren">Registrieren</a></div>
+            <button type="submit" name="login">Anmelden</button>
+            <input type="submit" name="registrieren" style="display:none;">
+            <div class="register"><a href="#" onclick="document.querySelector('input[name=registrieren]').click(); return false;">Registrieren</a></div>
+            
         </form>
         <form method="POST" action="">
             <input style="display: none;" type="text" name="guest" value="true" />
