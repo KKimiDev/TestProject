@@ -236,7 +236,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" style="margin-bottom: 100px;">
     <div class="container">
-      <a class="navbar-brand fw-bold text-warning" href="template">RezepteSite</a>
+      <a class="navbar-brand fw-bold text-warning" href="index">RezepteSite</a>
     </div>
   </nav>
         <!-- Alert for wrong username or password -->
