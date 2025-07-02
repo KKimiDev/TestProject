@@ -55,23 +55,23 @@ require_once("check_login.php");
                 <div class="overlay">Avocadotoast</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0001.jpeg" alt="Beispielbild" />
+                <div class="overlay">Nudelsuppe</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0002.jpg" alt="Beispielbild" />
+                <div class="overlay">Pfannenkuchen</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0001.jpeg" alt="Beispielbild" />
+                <div class="overlay">Nudelsuppe</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0002.jpg" alt="Beispielbild" />
+                <div class="overlay">Pfannenkuchen</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0000.jpg" alt="Beispielbild" />
                 <div class="overlay">Avocadotoast</div>
               </div>
             </div>
@@ -87,28 +87,28 @@ require_once("check_login.php");
           <div class=flex-bilder>
             <div class="scroll-container">
               <div class="image-container">
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0001.jpeg" alt="Beispielbild" />
+                <div class="overlay">Nudelsuppe</div>
+              </div>
+              <div class="image-container">
                 <img src="uploads/Anna Koch/Avocado Toast Deluxe 0000.jpg" alt="Beispielbild" />
                 <div class="overlay">Avocadotoast</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0002.jpg" alt="Beispielbild" />
+                <div class="overlay">Pfannenkuchen</div>
+              </div>
+              <div class="image-container">
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0000.jpg" alt="Beispielbild" />
                 <div class="overlay">Avocadotoast</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0001.jpeg" alt="Beispielbild" />
+                <div class="overlay">Nudelsuppe</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
-              </div>
-              <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
-              </div>
-              <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0002.jpg" alt="Beispielbild" />
+                <div class="overlay">Pfannenkuchen</div>
               </div>
             </div>
           </div>
@@ -123,28 +123,28 @@ require_once("check_login.php");
           <div class=flex-bilder>
             <div class="scroll-container">
               <div class="image-container">
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0002.jpg" alt="Beispielbild" />
+                <div class="overlay">Pfannenkuchen</div>
+              </div>
+              <div class="image-container">
                 <img src="uploads/Anna Koch/Avocado Toast Deluxe 0000.jpg" alt="Beispielbild" />
                 <div class="overlay">Avocadotoast</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0001.jpeg" alt="Beispielbild" />
+                <div class="overlay">Nudelsuppe</div>
+              </div>
+              <div class="image-container">
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0001.jpeg" alt="Beispielbild" />
+                <div class="overlay">Nudelsuppe</div>
+              </div>
+              <div class="image-container">
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0000.jpg" alt="Beispielbild" />
                 <div class="overlay">Avocadotoast</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
-              </div>
-              <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
-              </div>
-              <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
-              </div>
-              <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0002.jpg" alt="Beispielbild" />
+                <div class="overlay">Pfannenkuchen</div>
               </div>
             </div>
           </div>
@@ -159,27 +159,27 @@ require_once("check_login.php");
           <div class=flex-bilder>
             <div class="scroll-container">
               <div class="image-container">
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0002.jpg" alt="Beispielbild" />
+                <div class="overlay">Pfannenkuchen</div>
+              </div>
+              <div class="image-container">
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0001.jpeg" alt="Beispielbild" />
+                <div class="overlay">Nudelsuppe</div>
+              </div>
+              <div class="image-container">
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0002.jpg" alt="Beispielbild" />
+                <div class="overlay">Pfannenkuchen</div>
+              </div>
+              <div class="image-container">
                 <img src="uploads/Anna Koch/Avocado Toast Deluxe 0000.jpg" alt="Beispielbild" />
                 <div class="overlay">Avocadotoast</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0001.jpeg" alt="Beispielbild" />
+                <div class="overlay">Nudelsuppe</div>
               </div>
               <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
-              </div>
-              <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
-              </div>
-              <div class="image-container">
-                <img src="" alt="Beispielbild" />
-                <div class="overlay">Avocadotoast</div>
-              </div>
-              <div class="image-container">
-                <img src="" alt="Beispielbild" />
+                <img src="uploads/Anna Koch/Avocado Toast Deluxe 0000.jpg" alt="Beispielbild" />
                 <div class="overlay">Avocadotoast</div>
               </div>
             </div>
