@@ -8,11 +8,11 @@ $author = "";
 if (isset($_GET["Name"]))
   $name = $_GET["Name"];
 else
-  header("location: index");
+  header("location: http://localhost/sites/Rezepte");
 if (isset($_GET["Author"]))
   $author = $_GET["Author"];
-//else
-//header("location: index");
+else
+  header("location: http://localhost/sites/Rezepte");
 
 // Recipe
 
@@ -24,7 +24,8 @@ $stmt->execute(['name' => $name, 'author' => $author]);
 
 $recipe = $stmt->fetch();
 
-
+if(!$recipe || $stmt->fetch())
+  header("location: http://localhost/sites/Rezepte");
 
 // Images
 
@@ -84,9 +85,6 @@ while ($row = $stmt->fetch()) {
   array_push($utilities, $row);
 }
 
-//if(!$recipe || $stmt->fetch())
-//  header("location: index");
-
 ?>
 
 <!DOCTYPE html>
@@ -97,12 +95,11 @@ while ($row = $stmt->fetch()) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezeptseite – Alternativ</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
+  <!-- Bootstrap CSS button -->
   <style>
     .title-with-edit {
       display: inline-flex;
@@ -137,6 +134,7 @@ while ($row = $stmt->fetch()) {
     }
   </style>
 
+  <!-- Local styles -->
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -240,106 +238,97 @@ while ($row = $stmt->fetch()) {
 
 <body>
   <?php include("templates/navbar.php"); ?>
-
-  <div style="justify-content: center; display: flex;">
-    <h1 class="title-with-edit"><?= $recipe["Name"] ?>
-      Rezept
-      <button <?php if (!isset($_SESSION["usr"]) || $_SESSION["usr"] != $author) {
-                echo "style='display: none;'";
-              } ?> onclick='window.location.href = "http://localhost/sites/Rezepte/Rezeptbearbeiten/<?= $author ?>/<?= $name ?>"' class="edit-btn" aria-label="Rezept bearbeiten" title="Rezept bearbeiten">
-        <i class="bi bi-pencil-fill"></i>
-      </button>
-    </h1>
-  </div>
-  </button>
-
-  <!-- Bilder Slideshow (Carousel oben) -->
-  <div id="imageCarousel" data-bs-interval="false" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
-    <div class="carousel-inner">
-      <?php $_ = true;
-      foreach ($imgs as $img): ?>
-        <div class="carousel-item <?php if ($_) {
-                                    echo "active";
-                                    $_ = false;
-                                  } ?>">
-          <img src="/sites/Rezepte/uploads/<?= $img["Path"]; ?>" class="d-block w-100" alt="Schritt 1: Bananen zerdrücken">
-        </div>
-      <?php endforeach; ?>
+  <main class="container" style="margin-top: 20px;">
+    <div style="justify-content: center; display: flex;">
+      <h1 class="title-with-edit"><?= $recipe["Name"] ?>
+        Rezept
+        <button <?php if (!isset($_SESSION["usr"]) || $_SESSION["usr"] != $author) {
+                  echo "style='display: none;'";
+                } ?> onclick="window.location.href = 'http://localhost/sites/Rezepte/Rezeptbearbeiten/<?= $author ?>/<?= $name ?>'" class="edit-btn" aria-label="Rezept bearbeiten" title="Rezept bearbeiten">
+          <i class="bi bi-pencil-fill"></i>
+        </button>
+      </h1>
     </div>
-    <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Vorherige</span>
-    </a>
-    <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Nächste</span>
-    </a>
-  </div>
 
-  <!-- Rezeptkarte -->
-  <div class="recipe-card" tabindex="0" role="article" aria-label="Rezept Schoko-Bananen-Pancakes">
-    <h2 class="recipe-title"><?= $recipe["Name"] ?></h2>
-    <p class="recipe-desc">
-      <?= $recipe["Description"] ?>
-    </p>
-    <h3>Zutaten</h3>
-    <ul class="ingredients">
-      <?php
-      foreach ($ingredients as $ingredient) {
-        echo "<li>$ingredient[Ingredient]</li>";
-      }
-      ?>
-    </ul>
-
-    <h3>Hilfsmittel</h3>
-    <ul class="ingredients">
-      <?php
-      foreach ($utilities as $utility) {
-        echo "<li>$utility[Utility]</li>";
-      }
-      ?>
-    </ul>
-  </div>
-
-  <!-- Unteres Carousel (Repariert) -->
-  <div id="recipeCarousel" class="carousel slide" data-bs-interval="false" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
-    <div class="carousel-inner">
-      <?php $_ = true;
-      foreach ($steps as $step): ?>
-        <div class="carousel-item active">
-          <h3 class="recipe-title"><?php if ($_ = true) {
-                                      echo $step["Title"];
+    <!-- Bilder Slideshow (Carousel oben) -->
+    <div id="imageCarousel" data-bs-interval="false" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
+      <div class="carousel-inner">
+        <?php $_ = true;
+        foreach ($imgs as $img): ?>
+          <div class="carousel-item <?php if ($_) {
+                                      echo "active";
                                       $_ = false;
-                                    } ?></h3>
-          <p><?= $step["Explanation"] ?></p>
-        </div>
-      <?php endforeach; ?>
+                                    } ?>">
+            <img src="/sites/Rezepte/uploads/<?= $img["Path"]; ?>" class="d-block w-100" alt="Schritt 1: Bananen zerdrücken">
+          </div>
+        <?php endforeach; ?>
+      </div>
+      <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Vorherige</span>
+      </a>
+      <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Nächste</span>
+      </a>
     </div>
-    <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Vorherige</span>
-    </a>
-    <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Nächste</span>
-    </a>
-  </div>
 
-  <!-- Rezeptkarte -->
-  <div class="recipe-card" tabindex="0" role="article" aria-label="Rezept Schoko-Bananen-Pancakes">
-    <div>Erstellt von <a href="http://localhost/sites/Rezepte/Profil/<?= $recipe["Author"] ?>"><?= $recipe["Author"] ?></a></div>
-  </div>
+    <!-- Rezeptkarte -->
+    <div class="recipe-card" tabindex="0" role="article" aria-label="Rezept Schoko-Bananen-Pancakes">
+      <h2 class="recipe-title"><?= $recipe["Name"] ?></h2>
+      <p class="recipe-desc">
+        <?= $recipe["Description"] ?>
+      </p>
+      <h3>Zutaten</h3>
+      <ul class="ingredients">
+        <?php
+        foreach ($ingredients as $ingredient) {
+          echo "<li>$ingredient[Ingredient]</li>";
+        }
+        ?>
+      </ul>
 
-  <footer style="margin-top: 20px;">
-    <div class="container">
-      &copy; 2025 RezepteSite - Alle Rechte vorbehalten
+      <h3>Hilfsmittel</h3>
+      <ul class="ingredients">
+        <?php
+        foreach ($utilities as $utility) {
+          echo "<li>$utility[Utility]</li>";
+        }
+        ?>
+      </ul>
     </div>
-  </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Unteres Carousel (Repariert) -->
+    <div id="recipeCarousel" class="carousel slide" data-bs-interval="false" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
+      <div class="carousel-inner">
+        <?php $_ = true;
+        foreach ($steps as $step): ?>
+          <div class="carousel-item active">
+            <h3 class="recipe-title"><?php if ($_ = true) {
+                                        echo $step["Title"];
+                                        $_ = false;
+                                      } ?></h3>
+            <p><?= $step["Explanation"] ?></p>
+          </div>
+        <?php endforeach; ?>
+      </div>
+      <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Vorherige</span>
+      </a>
+      <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Nächste</span>
+      </a>
+    </div>
 
+    <!-- Autor -->
+    <div class="recipe-card" tabindex="0" role="article" aria-label="Rezept Schoko-Bananen-Pancakes">
+      <div>Erstellt von <a href="http://localhost/sites/Rezepte/Profil/<?= $recipe["Author"] ?>"><?= $recipe["Author"] ?></a></div>
+    </div>
+  </main>
+
+  <?php include("templates/footer.php"); ?>
 </body>
 
 </html>

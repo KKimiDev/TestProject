@@ -12,6 +12,7 @@ body {
 
 main {
   min-height: 80vh;
+  margin-top : 50px;
 }
 
 /* ===========================
@@ -178,7 +179,7 @@ footer {
    =========================== */
 .login-container {
   max-width: 400px;
-  margin: 80px auto;
+  margin: 110px auto;
   background: white;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
@@ -324,6 +325,7 @@ footer {
   padding: 15px 0;
   text-align: center;
   font-weight: 600;
+  margin-top: 70px;
 }
 .B-Rund{
   background-color: #f9a825;
@@ -416,12 +418,7 @@ footer {
   opacity: 1;
 }
 
-header {
-  margin-bottom: 100px;
-}
-
 footer {
-
   width: 100%;
   background-color: #f9a825; /* Beispiel Orange */
   color: white;
@@ -463,8 +460,8 @@ body {
 }
 
 /* Zusätzliche Styles für Sidebar und Layout */
-main {
-  min-height: 80vh;
+body {
+  min-height: 100vh;
 }
 
 footer {
@@ -563,3 +560,6 @@ footer {
 .flex-bilder{
   display: flex;
 }
+
+
+

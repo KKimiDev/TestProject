@@ -32,19 +32,48 @@ $authorisuser = isset($_SESSION["usr"]) && $_SESSION["usr"] == $profile_name;
 <html lang="en">
 
 <head>
-  <base href="/sites/Rezepte/" />
+  <?php include("templates/head.php"); ?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profilübersicht</title>
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Dein custom CSS -->
-
+  
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
+  <!-- Bootstrap CSS button -->
+  <style>
+    .title-with-edit {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      /* kleiner Abstand */
+      font-weight: 600;
+      font-size: 2rem;
+    }
+
+    .edit-btn {
+      border: none;
+      background: transparent;
+      color: #0d6efd;
+      /* Bootstrap primary */
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s ease;
+    }
+
+    .edit-btn:hover,
+    .edit-btn:focus {
+      color: #084298;
+      /* dunkleres Blau beim Hover */
+      outline: none;
+    }
+
+    .edit-btn i {
+      font-size: 1.2rem;
+    }
+  </style>
 
 </head>
 
@@ -60,7 +89,7 @@ $authorisuser = isset($_SESSION["usr"]) && $_SESSION["usr"] == $profile_name;
         if ($profile["Picture"] == null || trim($profile["Picture"]) == "") {
           echo "http://localhost/sites/Rezepte/rsc/R.png";
         } else {
-          echo "profile pictures/" . $profile["Picture"];
+          echo "http://localhost/sites/Rezepte/profile pictures/" . $profile["Picture"];
         }
         ?>" alt="Profilbild von User" />
 

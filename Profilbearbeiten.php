@@ -77,6 +77,7 @@ $descr = htmlspecialchars($stmt->fetch()["Description"]);
 <body>
   <?php include("templates/navbar.php"); ?>
 
+  <main>
   <h1 class="page-title" style="font-size:30px;color: #f9a825;">Profil bearbeiten</h1>
 
   <div class="profile-container">
@@ -117,7 +118,7 @@ $descr = htmlspecialchars($stmt->fetch()["Description"]);
       </div>
     </div>
   </div>
-
+          </main>
   <?php include("templates/footer.php"); ?>
 </body>
 

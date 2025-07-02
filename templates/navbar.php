@@ -10,7 +10,7 @@
           // URL-encode den Namen für GET-Parameter
           rezeptName = encodeURIComponent(rezeptName.trim());
           // Weiterleitung mit GET-Parameter
-          window.location.href = "Rezeptbearbeiten/<?= $_SESSION['usr'] ?? '' ?>/" + rezeptName;
+          window.location.href = "http://localhost/sites/Rezepte/Rezeptbearbeiten/<?= $_SESSION['usr'] ?? '' ?>/" + rezeptName;
         } else {
           alert("Bitte einen gültigen Namen eingeben.");
         }

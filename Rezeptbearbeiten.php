@@ -28,8 +28,17 @@ $recipe = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if (count($recipe) == 0) {
   $sql = "INSERT INTO Recipes (Name, Author, Description, Duration) VALUES (:name, :author, '', 30)";
   $stmt = $pdo->prepare($sql);
-  $stmt->execute(['name' => $name, 'author' => $author]);
-  $recipe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  if (!$stmt->execute(['name' => $name, 'author' => $author])) {
+    // If the insert fails, redirect to index
+    header("Location: http://localhost/sites/Rezepte");
+    exit;
+  }
+  $recipe = [[
+    'Name' => $name,
+    'Author' => $author,
+    'Description' => '',
+    'Duration' => 30
+  ]];
 }
 
 $imgs = fetchAll($pdo, 'Images', $name, $author);
@@ -84,46 +93,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
 <head><?php include("templates/head.php"); ?>
   <meta charset="UTF-8">
   <title>Rezept bearbeiten</title>
+  <style>
+    .recipe-card:hover {
+      transform: scale(1);
+    }
+  </style>
 </head>
 
 <body>
   <?php include("templates/navbar.php"); ?>
-  <h1>Rezept bearbeiten</h1>
 
-  <div class="recipe-card">
-    <form method="POST">
+  <main>
+    <h1>Rezept bearbeiten</h1>
 
-      <div class="form-group">
-        <label for="description" class="recipe-title">Beschreibung</label>
-        <textarea name="description" id="description" class="form-control" rows="4"><?= htmlspecialchars($recipe[0]['Description']) ?></textarea>
-      </div>
+    <div class="recipe-card">
+      <form method="POST">
 
-      <div class="form-group">
-        <label for="ingredients" class="recipe-title">Zutaten (eine pro Zeile)</label>
-        <textarea name="ingredients" id="ingredients" class="form-control ingredients" rows="6"><?= htmlspecialchars(implode("\n", array_column($ingredients, 'Ingredient'))) ?></textarea>
-      </div>
+        <div class="form-group">
+          <label for="description" class="recipe-title">Beschreibung</label>
+          <textarea name="description" id="description" class="form-control" rows="4"><?= htmlspecialchars($recipe[0]['Description']) ?></textarea>
+        </div>
 
-      <div class="form-group">
-        <label for="utilities" class="recipe-title">Hilfsmittel (eine pro Zeile)</label>
-        <textarea name="utilities" id="utilities" class="form-control ingredients" rows="4"><?= htmlspecialchars(implode("\n", array_column($utilities, 'Utility'))) ?></textarea>
-      </div>
+        <div class="form-group">
+          <label for="ingredients" class="recipe-title">Zutaten (eine pro Zeile)</label>
+          <textarea name="ingredients" id="ingredients" class="form-control ingredients" rows="6"><?= htmlspecialchars(implode("\n", array_column($ingredients, 'Ingredient'))) ?></textarea>
+        </div>
 
-      <div class="form-group">
-        <label for="steps" class="recipe-title">Schritte (Titel und Erklärung durch `---` trennen, je Schritt)</label>
-        <textarea name="steps" id="steps" class="form-control preparation" rows="10"><?= htmlspecialchars(
-                                                                                        implode("\n---\n", array_map(fn($s) => $s['Title'] . "\n" . $s['Explanation'], $steps))
-                                                                                      ) ?></textarea>
-      </div>
+        <div class="form-group">
+          <label for="utilities" class="recipe-title">Hilfsmittel (eine pro Zeile)</label>
+          <textarea name="utilities" id="utilities" class="form-control ingredients" rows="4"><?= htmlspecialchars(implode("\n", array_column($utilities, 'Utility'))) ?></textarea>
+        </div>
 
-      <div class="text-center mt-4">
-        <button type="submit" name="save" class="btn btn-warning font-weight-bold px-4 py-2">💾 Speichern</button>
-      </div>
-    </form>
-  </div>
+        <div class="form-group">
+          <label for="steps" class="recipe-title">Schritte (Titel und Erklärung durch `---` trennen, je Schritt)</label>
+          <textarea name="steps" id="steps" class="form-control preparation" rows="10"><?= htmlspecialchars(
+                                                                                          implode("\n---\n", array_map(fn($s) => $s['Title'] . "\n" . $s['Explanation'], $steps))
+                                                                                        ) ?></textarea>
+        </div>
 
-  <!-- Bootstrap & jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+        <div class="text-center mt-4">
+          <button type="submit" name="save" class="btn btn-warning font-weight-bold px-4 py-2">💾 Speichern</button>
+        </div>
+      </form>
+    </div>
+  </main>
   <?php include("templates/footer.php"); ?>
 </body>
 
