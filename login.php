@@ -2,6 +2,9 @@
 <?php
 session_start();
 
+unset($_SESSION["usr"]);
+unset($_SESSION["guest"]);
+
 require_once("database_login.php");
 
 $login_error = 'display:none;';

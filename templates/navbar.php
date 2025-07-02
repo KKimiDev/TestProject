@@ -27,6 +27,9 @@ function neuesRezept() {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto gap-3">
           <li class="nav-item">
+            <button class="B-Rund" onclick="document.location='http://localhost/sites/Rezepte/login'">Login</button>
+          </li>
+          <li class="nav-item">
             <button class="B-Rund" onclick="document.location='http://localhost/sites/Rezepte/index'">Startseite</button>
           </li>
           <li class="nav-item">
