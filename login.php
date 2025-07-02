@@ -3,7 +3,70 @@
 session_start();
 
 require_once("database_login.php");
+
+$login_error = 'display:none;';
+$register_error = 'display:none;';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['guest'])) {
+        // Gastzugang
+        $_SESSION['guest'] = true;
+        header("Location: index.php");
+        exit();
+    }
+    $usr = htmlspecialchars($_POST['usr']);
+    $pass = htmlspecialchars($_POST['pwd']);
+
+    $sql = "SELECT * FROM Users WHERE Username=:usr";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([':usr' => $usr]);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if(isset($_POST["login"])) {
+        if ($result && count($result) == 1) {
+            $user = $result[0];
+            // Passwort prüfen
+            if (password_verify($pass, $user['Password'])) {
+                // Login erfolgreich
+                $_SESSION['usr'] = $user['Username'];
+                
+                header("Location: index.php");
+                exit();
+            } else {
+                $login_error = "";
+            }
+        } else {
+            $login_error = "";
+        }
+    } else if (isset($_POST["register"])) {
+        if (count($result) == 0) {
+            // Passwort hashen
+            $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
+
+            // Benutzer in DB einfügen
+            $insert_sql = "INSERT INTO Users (Username, Password, Description) VALUES (:usr, :pass, '')";
+            $insert_stmt = $pdo->prepare($insert_sql);
+            $insert_success = $insert_stmt->execute([
+                ':usr' => $usr,
+                ':pass' => $hashed_password
+            ]);
+
+            if ($insert_success) {
+                // Direkt nach Registrierung einloggen und weiterleiten
+                $_SESSION['usr'] = $usr;
+                header("Location: index.php");
+                exit();
+            } else {
+                // Fehler beim Einfügen
+                $register_error = "";
+            }
+        } else {
+            $register_error = "";
+        }
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -168,70 +231,6 @@ require_once("database_login.php");
   </style>
     </head>
     <body>
-        <?php
-
-$login_error = 'display:none;';
-$register_error = 'display:none;';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['guest'])) {
-        // Gastzugang
-        $_SESSION['guest'] = true;
-        header("Location: index.php");
-        exit();
-    }
-    $usr = htmlspecialchars($_POST['usr']);
-    $pass = htmlspecialchars($_POST['pwd']);
-
-    $sql = "SELECT * FROM Users WHERE Username=:usr";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([':usr' => $usr]);
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    if(isset($_POST["login"])) {
-        if ($result && count($result) == 1) {
-            $user = $result[0];
-            // Passwort prüfen
-            if (password_verify($pass, $user['Password'])) {
-                // Login erfolgreich
-                $_SESSION['usr'] = $user['Username'];
-                
-                header("Location: index.php");
-                exit();
-            } else {
-                $login_error = "";
-            }
-        } else {
-            $login_error = "";
-        }
-    } else if (isset($_POST["register"])) {
-        if (count($result) == 0) {
-            // Passwort hashen
-            $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
-
-            // Benutzer in DB einfügen
-            $insert_sql = "INSERT INTO Users (Username, Password, Description) VALUES (:usr, :pass, '')";
-            $insert_stmt = $pdo->prepare($insert_sql);
-            $insert_success = $insert_stmt->execute([
-                ':usr' => $usr,
-                ':pass' => $hashed_password
-            ]);
-
-            if ($insert_success) {
-                // Direkt nach Registrierung einloggen und weiterleiten
-                $_SESSION['usr'] = $usr;
-                header("Location: index.php");
-                exit();
-            } else {
-                // Fehler beim Einfügen
-                $register_error = "";
-            }
-        } else {
-            $register_error = "";
-        }
-    }
-}
-?>
         <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" style="margin-bottom: 100px;">
     <div class="container">
