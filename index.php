@@ -23,11 +23,11 @@ require_once("check_login.php");
         <div class="sidebar">
           <h5>Kategorien</h5>
           <ul>
-            <li><a href="#">Vegetarisch</a></li>
-            <li><a href="#">Vegan</a></li>
-            <li><a href="#">Fleisch</a></li>
-            <li><a href="#">Desserts</a></li>
-            <li><a href="#">Schnell & Einfach</a></li>
+            <li><a href="http://localhost/sites/Rezepte/Suche?tags=Vegetarisch">Vegetarisch</a></li>
+            <li><a href="#http://localhost/sites/Rezepte/Suche?tags=Vegan">Vegan</a></li>
+            <li><a href="http://localhost/sites/Rezepte/Suche?tags=Fleisch">Fleisch</a></li>
+            <li><a href="http://localhost/sites/Rezepte/Suche?tags=Desserts">Desserts</a></li>
+            <li><a href="http://localhost/sites/Rezepte/Suche?tags=Simpel">Simpel</a></li>
           </ul>
 
           <h5>Beliebte Tags</h5>
