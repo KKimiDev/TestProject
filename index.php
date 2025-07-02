@@ -147,7 +147,7 @@
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
-      <a class="navbar-brand fw-bold text-warning" href="template">RezepteSite</a>
+      <a class="navbar-brand fw-bold text-warning" href="index">RezepteSite</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -155,7 +155,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto gap-3">
           <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='template'">Startseite</button>
+            <button class="B-Rund" onclick="document.location='index'">Startseite</button>
           </li>
           <li class="nav-item">
             <button class="B-Rund" onclick="document.location='Suche'">Rezepte</button>
