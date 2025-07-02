@@ -33,32 +33,7 @@
 
   </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-      <a class="navbar-brand fw-bold text-warning" href="#">RezepteSite</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto gap-3">
-          <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='index'">Startseite</button>
-          </li>
-          <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='Suche'">Rezepte</button>
-          </li>
-          <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='Ueberuns.html'">Über Uns</button>
-          </li>
-          <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='Kontakt.html'">Kontakt</button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<?php include("templates/head.php;"); ?>
 
   <!-- Hauptbereich mit Sidebar und Content -->
   <main class="container my-5">
