@@ -7,10 +7,7 @@ require_once("check_login.php");
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezepte Website</title>
-<<<<<<< HEAD
   <?php include("templates/head.php;"); ?>
-=======
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Dein custom CSS -->
   <style>
@@ -150,7 +147,7 @@ require_once("check_login.php");
     .image-container {
       position: relative;
       display: inline-block;
-      width: 300px; /* Größe nach Bedarf */
+      width: 300px; 
       height: 200px;
       overflow: hidden;
       cursor: pointer;
@@ -190,56 +187,9 @@ require_once("check_login.php");
     }
 
   </style>
->>>>>>> 58b0efa (Bild overlay)
 </head>
 <body>
-<script>
-function neuesRezept() {
-    <?php 
-      if (isset($_SESSION["guest"])) {
-        echo "window.location.href = 'login'; return;";
-      }
-    ?>
-    let rezeptName = prompt("Bitte den Namen des neuen Rezepts eingeben:");
-    if (rezeptName && rezeptName.trim() !== "") {
-        // URL-encode den Namen für GET-Parameter
-        rezeptName = encodeURIComponent(rezeptName.trim());
-        // Weiterleitung mit GET-Parameter
-        window.location.href = "Rezeptbearbeiten/<?= $_SESSION['usr'] ?? '' ?>/" + rezeptName;
-    } else {
-        alert("Bitte einen gültigen Namen eingeben.");
-    }
-}
-</script>
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-      <a class="navbar-brand fw-bold text-warning" href="index">RezepteSite</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto gap-3">
-          <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='index'">Startseite</button>
-          </li>
-          <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='Suche'">Rezepte</button>
-          </li>
-          <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='Ueberuns.html'">Über Uns</button>
-          </li>
-          <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='Kontakt.html'">Kontakt</button>
-          </li>
-          <li class="nav-item">
-            <button class="B-Rund" onclick="neuesRezept();">Neues Rezept</button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<?php include("templates/navbar.php"); ?>
 
   <!-- Hauptbereich mit Sidebar und Content -->
   <main class="container my-5">
