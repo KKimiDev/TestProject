@@ -115,12 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
     </form>
   </div>
 
-  <footer style="margin-top: 40px;">
-    <div class="container text-center">
-      &copy; 2025 RezepteSite – Alle Rechte vorbehalten
-    </div>
-  </footer>
-
   <!-- Bootstrap & jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
