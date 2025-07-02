@@ -1,3 +1,65 @@
+
+<?php
+require_once("database_login.php");
+require_once("check_login.php");
+
+if(isset($_SESSION["guest"])) {
+  header("Location: index.php");
+}
+
+$username = $_SESSION["usr"];
+
+
+// Initialisieren von Variablen
+$altpass = $neupass = $beschreibung = "";
+$fehler = "";
+
+// Prüfen, ob das Formular gesendet wurde
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Hier kann die Eingabe validiert und bearbeitet werden
+    $altpass = $_POST['altpasswort'] ?? '';
+    $neupass = $_POST['neupasswort'] ?? '';
+    $beschreibung = $_POST['beschreibung'] ?? '';
+
+    // Beispielhafte Validierung (Hier können auch noch mehr Sicherheitschecks eingefügt werden)
+    if (empty($altpass) || empty($neupass)) {
+        $fehler = "Bitte beide Passwörter eingeben.";
+    } else {
+        $altpass_hash = password_hash($altpass, PASSWORD_DEFAULT);
+
+        // Hier würde normalerweise das Passwort gehasht und in einer Datenbank gespeichert werden
+        // z.B.:
+
+        $neupass_hash = password_hash($neupass, PASSWORD_DEFAULT);
+
+        $sql = "SELECT Password FROM users WHERE Username = :username";
+       
+        $stmt = $pdo->prepare($sql);
+
+        // Bind the value to the placeholder and execute
+        $stmt->execute(['username' => $username]);
+
+        $pwd = $stmt->fetch();
+
+        if($pwd) {
+          if (password_verify($_POST['altpasswort'], $pwd)) {
+            $sql = "UPDATE users SET Password = $neupass_hash WHERE Username = :username";
+            $stmt->execute(['username' => $username]);
+
+            } else {
+            $fehler = "Bitte beide Passwörter eingeben.";
+            }
+        }
+
+        echo "Passwortänderung erfolgreich!";
+        // Hier kann z.B. auch die Datenbank aktualisiert werden
+    }
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -13,42 +75,34 @@
     <div class="profile-header">
       <img class="profile-pic" src="Bilder/R.png" alt="Profilbild von User" />
       <div>
-        <div class="zsm">
-          <h1 class="veraenderung">Altes Passwort:</h1>
-          <form class="folgen">
-          <input type="text" placeholder="Altes Passwort">
-          </form>
-          <h1 class="veraenderung">Passwort:</h1>
-          <form class="folgen">
-            <input type="text" placeholder="Neues Passwort">
-          </form>
-        </div>
-        <div class="zsm">
-          <h1 class="veraenderung">Beschreibung:</h1>
-          <form class="folgen">
-            <input type="text" placeholder="Deine Profilbeschreibung">
-          </form>
-        </div>
+        <!-- Formular zum Bearbeiten des Profils -->
+        <form class="folgen" method="POST" action="">
+          <div class="zsm">
+            <h1 class="veraenderung">Altes Passwort:</h1>
+            <input type="password" placeholder="Altes Passwort" name="altpasswort" value="<?= htmlspecialchars($altpass) ?>" required>
+          </div>
+
+          <div class="zsm">
+            <h1 class="veraenderung">Neues Passwort:</h1>
+            <input type="password" placeholder="Neues Passwort" name="neupasswort" value="<?= htmlspecialchars($neupass) ?>" required>
+          </div>
+
+          <div class="zsm">
+            <h1 class="veraenderung">Beschreibung:</h1>
+            <input type="text" placeholder="Deine Profilbeschreibung" name="beschreibung" value="<?= htmlspecialchars($beschreibung) ?>">
+          </div>
+
+          <!-- Bestätigungsbutton -->
+          <button type="submit" name="bestaetigen">Bestätigen</button>
+          
+          <!-- Fehlerausgabe, falls es welche gibt -->
+          <?php if ($fehler): ?>
+            <p style="color: red;"><?= $fehler ?></p>
+          <?php endif; ?>
+        </form>
       </div>
     </div>
-
-
-    <!-- Statistik bleibt unverändert -->
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-number">34</div>
-        <div class="stat-label">Rezepte hochgeladen</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number">120</div>
-        <div class="stat-label">Follower</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number">18</div>
-        <div class="stat-label">Lieblingsrezepte</div>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
+
 
