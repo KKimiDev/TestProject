@@ -26,7 +26,7 @@ require_once("check_login.php");
           <h5>Kategorien</h5>
           <ul>
             <li><a href="http://localhost/sites/Rezepte/Suche?tags=Vegetarisch">Vegetarisch</a></li>
-            <li><a href="#http://localhost/sites/Rezepte/Suche?tags=Vegan">Vegan</a></li>
+            <li><a href="http://localhost/sites/Rezepte/Suche?tags=Vegan">Vegan</a></li>
             <li><a href="http://localhost/sites/Rezepte/Suche?tags=Fleisch">Fleisch</a></li>
             <li><a href="http://localhost/sites/Rezepte/Suche?tags=Desserts">Desserts</a></li>
             <li><a href="http://localhost/sites/Rezepte/Suche?tags=Simpel">Simpel</a></li>

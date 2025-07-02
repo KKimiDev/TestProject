@@ -45,6 +45,7 @@ $imgs = fetchAll($pdo, 'Images', $name, $author);
 $steps = fetchAll($pdo, 'Steps', $name, $author);
 $ingredients = fetchAll($pdo, 'Ingredients', $name, $author);
 $utilities = fetchAll($pdo, 'Utilities', $name, $author);
+$tags = fetchAll($pdo, 'Tags', $name, $author);
 
 // Handle form submit
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
@@ -80,7 +81,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
 
   replaceMany($pdo, 'Ingredients', 'Ingredient', 'Ingredient', $name, $author, explode("\n", $_POST['ingredients']));
   replaceMany($pdo, 'Utilities', 'Utility', 'Utility', $name, $author, explode("\n", $_POST['utilities']));
-  replaceMany($pdo, 'Steps', 'Title, Explanation', 'Explanation', $name, $author, explode("\n---\n", $_POST['steps']));
+  //replaceMany($pdo, 'Steps', 'Title, Explanation', 'Explanation', $name, $author, explode("\n---\n", $_POST['steps']));
+  replaceMany($pdo, 'Tags', 'Title, Tag', 'Tag', $name, $author, explode("\n", $_POST['tags']));
+
+  //Steps
+  $steps_ = explode("\n", $_POST['steps']);
+
+  $pdo->prepare("DELETE FROM Steps WHERE RecipeName = :name AND RecipeAuthor = :author")
+    ->execute(['name' => $name, 'author' => $author]);
+  $stmt2 = $pdo->prepare("
+          INSERT INTO Steps (RecipeName, RecipeAuthor, Title, Explanation) 
+          VALUES (:name, :author, :value1, :value2)
+      ");
+  foreach ($steps_ as $it) {
+    $parts = explode(":", $it);
+    if (count($parts) < 1) continue;
+    
+    $sliced = array_slice($parts, 1);
+
+    // Join all sliced elements into a string (no separator or with one, like space or comma)
+    $part2 = implode('', $sliced);
+
+    
+    $stmt2->execute(['name' => $name, 'author' => $author, 'value1' => trim($parts[0]), 'value2' => trim($part2)]);
+  }
 
   $pdo->commit();
   //header("Location: view_recipe.php?Name=".urlencode($_POST['name'])."&Author=".urlencode($_POST['author']));
@@ -125,10 +149,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
         </div>
 
         <div class="form-group">
-          <label for="steps" class="recipe-title">Schritte (Titel und Erklärung durch `---` trennen, je Schritt)</label>
-          <textarea name="steps" id="steps" class="form-control preparation" rows="10"><?= htmlspecialchars(
-                                                                                          implode("\n---\n", array_map(fn($s) => $s['Title'] . "\n" . $s['Explanation'], $steps))
-                                                                                        ) ?></textarea>
+          <label for="tags" class="recipe-title">Tags (einer pro Zeile)</label>
+          <textarea name="tags" id="utilities" class="form-control ingredients" rows="4"><?= htmlspecialchars(implode("\n", array_column($tags, 'Utility'))) ?></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="steps" class="recipe-title">Schritte (Titel und Erklärung durch `:` trennen, je Schritt eine Zeile)</label>
+          <textarea name="steps" id="steps" class="form-control ingredients" rows="10"><?php $res = ""; foreach($steps as $step) {$res .= "$step[Title]: $step[Explanation]\n";} echo $res; ?></textarea>
         </div>
 
         <div class="text-center mt-4">

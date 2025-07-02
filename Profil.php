@@ -129,7 +129,7 @@ $authorisuser = isset($_SESSION["usr"]) && $_SESSION["usr"] == $profile_name;
 
       <script>
         function open_recipe(name) {
-          window.location.href = "Rezept/<?php echo $profile["Username"]; ?>/" + name;
+          window.location.href = "http://localhost/sites/Rezepte/Rezept/<?php echo $profile["Username"]; ?>/" + name;
         }
       </script>
 

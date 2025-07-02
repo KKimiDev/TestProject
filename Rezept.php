@@ -85,6 +85,19 @@ while ($row = $stmt->fetch()) {
   array_push($utilities, $row);
 }
 
+// Utilities
+
+$sql = "SELECT * FROM Recipes INNER JOIN Tags ON (Recipes.Name = Tags.RecipeName AND Recipes.Author = Tags.RecipeAuthor) WHERE Name = :name AND Author = :author";
+$stmt = $pdo->prepare($sql);
+
+// Bind the value to the placeholder and execute
+$stmt->execute(['name' => $name, 'author' => $author]);
+
+$tags = [];
+while ($row = $stmt->fetch()) {
+  array_push($tags, $row);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -293,6 +306,15 @@ while ($row = $stmt->fetch()) {
         <?php
         foreach ($utilities as $utility) {
           echo "<li>$utility[Utility]</li>";
+        }
+        ?>
+      </ul>
+
+      <h3>Tags</h3>
+      <ul class="tags">
+        <?php
+        foreach ($tags as $tag) {
+          echo "<li>$tag[Tag]</li>";
         }
         ?>
       </ul>

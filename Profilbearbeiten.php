@@ -61,6 +61,56 @@ $stmt->execute(['username' => $username]);
 $descr = htmlspecialchars($stmt->fetch()["Description"]);
 
 ?>
+<?php
+if (isset($_POST['uploadPic']) && isset($_FILES['profilePic'])) {
+    $file = $_FILES['profilePic'];
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    $width = 200;  // max Breite in Pixel
+    $height = 200; // max Höhe in Pixel
+
+    if ($file['error'] === UPLOAD_ERR_OK) {
+
+        if (!in_array($file['type'], $allowedTypes)) {
+            echo "Nur JPG, PNG und GIF Dateien sind erlaubt.";
+        } else {
+            // Bildgrößen auslesen
+            $imageInfo = getimagesize($file['tmp_name']);
+            if ($imageInfo === false) {
+                echo "Die Datei ist kein gültiges Bild.";
+                exit;
+            }
+
+            if ($width != $imageInfo[0] || $height > $imageInfo[1]) {
+                echo "Das Bild muss {$maxWidth}x{$maxHeight} Pixel groß sein.";
+                exit;
+            }
+
+            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            $newFileName = $_SESSION['usr'] . "_profile_" . time() . "." . $ext;
+
+            $uploadDir = __DIR__ . "/profile_pictures/";
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+            $destination = $uploadDir . $newFileName;
+
+            if (move_uploaded_file($file['tmp_name'], $destination)) {
+                // Update DB
+                $sql = "UPDATE Users SET Picture = :pic WHERE Username = :usr";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(['pic' => $newFileName, 'usr' => $_SESSION['usr']]);
+
+                echo "Profilbild erfolgreich hochgeladen!";
+            } else {
+                echo "Fehler beim Speichern der Datei.";
+            }
+        }
+
+    } else {
+        echo "Fehler beim Hochladen der Datei.";
+    }
+}
+?>
 
 
 <!DOCTYPE html>
@@ -87,6 +137,11 @@ $descr = htmlspecialchars($stmt->fetch()["Description"]);
       <div>
         <!-- Formular zum Bearbeiten des Profils -->
         <br>
+        <form method="POST" action="" enctype="multipart/form-data">
+          <label for="profilePic">Profilbild hochladen:</label>
+          <input type="file" name="profilePic" id="profilePic" accept="image/*" required>
+          <button type="submit" name="uploadPic">Bild hochladen</button>
+        </form>
         <form class="form-section" method="POST" action="">
           <div class="form-group">
             <label for="altpasswort" class="form-label">Altes Passwort:</label>
