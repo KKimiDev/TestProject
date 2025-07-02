@@ -33,10 +33,10 @@ function neuesRezept() {
             <button class="B-Rund" onclick="document.location='http://localhost/sites/Rezepte/Suche'">Rezepte</button>
           </li>
           <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='http://localhost/sites/Rezepte/Ueberuns.html'">Über Uns</button>
+            <button class="B-Rund" onclick="document.location='http://localhost/sites/Rezepte/Ueberuns'">Über Uns</button>
           </li>
           <li class="nav-item">
-            <button class="B-Rund" onclick="document.location='http://localhost/sites/Rezepte/Kontakt.html'">Kontakt</button>
+            <button class="B-Rund" onclick="document.location='http://localhost/sites/Rezepte/Kontakt'">Kontakt</button>
           </li>
           <li class="nav-item">
             <button class="B-Rund" onclick="neuesRezept();">Neues Rezept</button>
