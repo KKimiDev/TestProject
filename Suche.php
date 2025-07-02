@@ -89,7 +89,7 @@ $stmt->execute();
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <base href="/sites/Rezepte/"/>
+  <?php include("templates/head.phps");?>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezeptsuche</title>
