@@ -1,5 +1,7 @@
 RewriteEngine On
 
+RewriteBase /sites/Rezepte
+
 # Only rewrite if the requested file or directory does not exist
 RewriteCond %{REQUEST_FILENAME} !-f 
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -7,8 +9,8 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # Route /something to something.php
 RewriteRule ^([^/]+)/?$ $1.php [L,QSA]
 
-
 # Route /Profil/username to Profil.php?nutzer=username
 RewriteRule ^Profil/([^/]+)/?$ Profil.php?name=$1 [L,QSA]
 
-RewriteRule ^Rezept/([^/]+)/([^/]+)/?$ Rezept.php?usr=$1&recipe=$2 [L,QSA]
+# Route /Rezept/username/recipename to Rezept.php?Author=username&Name=recipename
+RewriteRule ^Rezept/([^/]+)/([^/]+)/?$ Rezept.php?Author=$1&Name=$2 [L,QSA]

@@ -1,53 +1,91 @@
 <?php
-// Datenbankverbindung
-  $servername = "localhost";
-  $username = "root"; // Standard bei XAMPP
-  $password = "";
-  $dbname = "Rezepte";
+require_once("database_login.php");
+require_once("check_login.php");
 
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  if ($conn->connect_error) {
-    die("Verbindung fehlgeschlagen: " . $conn->connect_error);
-  }
+if (!isset($_SESSION['usr']) && !isset($_SESSION['guest'])) {
+    // Benutzer ist nicht eingeloggt → zur Login-Seite weiterleiten
+    header("Location: login.php");
+    exit;
+}
 
-// Beispiel: PHP Teil für Tag-Liste (kann dynamisch aus DB kommen)
+// standard tags
 $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 'Glutenfrei', 'LowCarb', 'Frühstück', 'Sommer'];
 
-  $author = null; 
-  $duration = -1;
+// search params
+$author = null; 
+$duration = -1;
+$tagcount = 0;
+$tags = [];
 
-  if(isset($_GET["Author"])) {
-    $author = $_GET["Author"];
+// build sql
+
+if(isset($_GET["tags"]) && trim($_GET["tags"]) != "") {
+  $tags = explode(',', trim($_GET["tags"]));
+  $tagcount = count($tags);
+}
+
+if(isset($_GET["Author"]) && trim($_GET["Author"]) != "") {
+  $author = $_GET["Author"];
+}
+
+if(isset($_GET["maxDuration"]) && trim($_GET["maxDuration"]) != "") {
+  try {
+    $duration = (int) $_GET["maxDuration"];
+  } catch (Exception $e) {
+    $duration = -1;
   }
+}
 
-  if(isset($_GET["Duration"])) {
-    $duration = $_GET["Duration"];
+$sql = "SELECT Name, Author, Description FROM Recipes LEFT JOIN Tags ON (Tags.RecipeName = Recipes.Name AND Tags.RecipeAuthor = Recipes.Author) WHERE 1=1 ";
+
+
+if ($author != null)
+  $sql .= " AND Author = :author ";
+
+if ($duration != -1) 
+  $sql .= "AND Duration <= :duration ";
+
+
+
+if ($tagcount != 0) {
+  $sql .= "AND (";
+  $i = 0;
+  foreach($tags as $tag) {
+    $tag = trim($tag);
+    $sql .= "Tag = :tag$i OR ";
+    $i += 1;
   }
+  $sql .= "1 = 2) ";
+}
 
-  $tagcount = 1;
-  $tags = ["Avocado"];
 
-  $sql = "SELECT Name, Author FROM Recipes INNER JOIN Tags ON (Tags.RecipeName = Recipes.Name AND Tags.RecipeAuthor = Recipes.Author) WHERE 1=1 ";
+$sql .= "GROUP BY Recipes.Name, Recipes.Author, Recipes.Description ";
 
-  if ($author != null)
-    $sql .= " AND Author = $author";
-  
-  if ($duration != -1) 
-    $sql .= "AND Duration <= $duration";
-  
-  if ($tagcount != 0)
-    $sql .= "AND (Tag = )";
-    foreach($tag in $tags) {
-      $sql .= "Tag = $tag OR";
-    }
-    $sql .= "1=1)";
-  
-  $sql .= "GROUP BY Recipes.Name, Recipes.Author ";
+if($tagcount != 0)
+  $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;";
 
-  if($tagcount != 0)
-    $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;"
+echo $sql;
 
-  $res = $conn->query($sql);
+
+$stmt = $pdo->prepare($sql);
+
+$i = 0;
+foreach ($tags as $tag) {
+    $stmt->bindValue(":tag$i", trim($tag));
+    $i++;
+}
+
+
+if ($author != null)  
+  $stmt->bindValue(":author", trim($author));
+
+if ($duration != -1)
+  $stmt->bindValue(":duration", trim($duration));
+
+
+// Bind the value to the placeholder and execute
+$stmt->execute();
+
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +95,8 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezeptsuche</title>
+
+  <link href="/sites/Rezepte/css/style.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
     /* Beispiel Styles für Tag-Chips */
@@ -122,6 +162,8 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
         } else {
           span.classList.add("active");
         }
+
+        update_hidden_input();
       }
 
     </script>
@@ -130,7 +172,7 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
       <label class="form-label">Tags auswählen</label>
       <div id="tagsContainer" class="mb-2">
         <?php foreach ($allTags as $tag): ?>
-          <span onclick="toggleSelect(this); update_hidden_input();" class="tag-chip" data-tag="<?= htmlspecialchars($tag) ?>"><?= htmlspecialchars($tag) ?></span>
+          <span onclick="toggleSelect(this); " class="tag-chip" data-tag="<?= htmlspecialchars($tag) ?>"><?= htmlspecialchars($tag) ?></span>
           <?php endforeach; ?>
       </div>
       <input id = "tags" style="display: none;" type="text" name="tags" value=""/>
@@ -170,7 +212,7 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
 </script>
     <div class="mb-3">
       <label for="author" class="form-label">Autor</label>
-      <input type="text" name="author" id="author" class="form-control" placeholder="Autorname eingeben" />
+      <input type="text" name="Author" id="author" class="form-control" placeholder="Autorname eingeben" />
     </div>
 
     <div class="mb-3">
@@ -185,10 +227,18 @@ $allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 
   <section>
     <h2>Suchergebnisse</h2>
     <div id="results" class="row g-4">
+      <script>
+        function open_recipe(author, name) {
+          window.location.href = "Rezept/" + author + "/" + name;
+        }
+      </script>
       <!-- Hier kommen Rezept-Karten rein -->
        <?php
-        while(($row = $res->fetch_assoc())) {
-          echo "$row[Name] ... $row[Author]";
+        while(($row = $stmt->fetch())) {
+          echo '<div class="recipe-card" onclick="open_recipe('."'$row[Author]',"."'$row[Name]'".')">
+            <div class="recipe-title">' . $row["Name"] . '</div>
+            <div class="recipe-desc">' . $row["Description"] . '</div>
+          </div>';
         }
        ?>
     </div>
