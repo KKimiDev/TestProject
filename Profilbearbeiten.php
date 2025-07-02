@@ -68,49 +68,59 @@ $descr = htmlspecialchars($stmt->fetch()["Description"]);
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <?php include("templates/head.php");?>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Profil bearbeiten</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Profil bearbeiten</h1>
+  <?php include("templates/navbar.php");?>
+
+  <h1 class="page-title" style="font-size:30px;color: #f9a825;">Profil bearbeiten</h1>
   
   <div class="profile-container">
     <div class="profile-header">
-      <img class="profile-pic" src="Bilder/R.png" alt="Profilbild von User" />
+      <img class="profile-pic" src="http://localhost/sites/Rezepte/rsc/R.png" alt="Profilbild von User" style="width:20%; height:20%;"/>
+      
       <div>
         <!-- Formular zum Bearbeiten des Profils -->
-        <form class="folgen" method="POST" action="">
-          <div class="zsm">
-            <h1 class="veraenderung">Altes Passwort:</h1>
-            <input type="password" placeholder="Altes Passwort" name="altpasswort" value="" required>
+         <br>
+        <form class="form-section" method="POST" action="">
+          <div class="form-group">
+            <label for="altpasswort" class="form-label">Altes Passwort:</label>
+            <input id="altpasswort" class="form-input" type="password" placeholder="Altes Passwort" name="altpasswort" required>
           </div>
+          <br>
+          <div class="form-group">
+            <label for="neupasswort" class="form-label">Neues Passwort:</label>
+            <input id="neupasswort" class="form-input" type="password" placeholder="Neues Passwort" name="neupasswort" required>
+          </div>
+          <br>
+          <button type="submit" name="bestaetigen" class="btn-primary">Bestätigen</button>
+        </form>
+         <br>
+        <form class="form-section" method="POST" action="">
+          <div class="form-group">
+            <label for="beschreibung" class="form-label">Beschreibung:</label>
+            <input id="beschreibung" class="form-input" type="text" placeholder="Deine Profilbeschreibung" name="beschreibung" value="<?= htmlspecialchars($descr) ?>">
+          </div>
+           <br>
+          <button type="submit" name="bestaetigen" class="btn-primary">Bestätigen</button>
+           <br>
 
-          <div class="zsm">
-            <h1 class="veraenderung">Neues Passwort:</h1>
-            <input type="password" placeholder="Neues Passwort" name="neupasswort" value="" required>
-          </div>
-          <!-- Bestätigungsbutton -->
-          <button type="submit" name="bestaetigen">Bestätigen</button>
-</form>
-      <form class="folgen2" method="POST" action="">
-          <div class="zsm">
-            <h1 class="veraenderung">Beschreibung:</h1>
-            <input type="text" placeholder="Deine Profilbeschreibung" name="beschreibung" value="<?= $descr ?>">
-          </div>
-
-          <!-- Bestätigungsbutton -->
-          <button type="submit" name="bestaetigen">Bestätigen</button>
-          
-          <!-- Fehlerausgabe, falls es welche gibt -->
           <?php if ($fehler): ?>
-            <p style="color: red;"><?= $fehler ?></p>
+            <p class="error-message"><?= htmlspecialchars($fehler) ?></p>
           <?php endif; ?>
         </form>
+       
       </div>
     </div>
+  </div>
+
+  <?php include("templates/footer.php"); ?>
 </body>
 </html>
+
 
 
