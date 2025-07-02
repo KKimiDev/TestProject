@@ -1,16 +1,16 @@
-<!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="css/style.css" rel="stylesheet" />
-  <!-- Dein custom CSS -->
-  <style>
-    /* Hier kommt dein gesamter CSS-Code aus deiner Vorlage rein */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #faf8f5;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- Dein custom CSS -->
+    <style>
+      /* Hier kommt dein gesamter CSS-Code aus deiner Vorlage rein */
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #faf8f5;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
 
     .profile-container {
       max-width: 800px;
