@@ -62,9 +62,7 @@ if ($tagcount != 0) {
 $sql .= "GROUP BY Recipes.Name, Recipes.Author, Recipes.Description ";
 
 if($tagcount != 0)
-  $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;";
-
-echo $sql;
+  $sql .= "HAVING COUNT(DISTINCT Tag) = $tagcount;";s
 
 
 $stmt = $pdo->prepare($sql);
