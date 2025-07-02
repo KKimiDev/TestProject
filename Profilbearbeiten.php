@@ -1,4 +1,3 @@
-
 <?php
 require_once("database_login.php");
 require_once("check_login.php");

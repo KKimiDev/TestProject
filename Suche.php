@@ -166,52 +166,83 @@ $stmt->execute();
       <label class="form-label">Tags auswählen</label>
       <div id="tagsContainer" class="mb-2">
         <?php foreach ($allTags as $tag): ?>
-          <span onclick="toggleSelect(this); " class="tag-chip" data-tag="<?= htmlspecialchars($tag) ?>"><?= htmlspecialchars($tag) ?></span>
+         <span onclick="toggleSelect(this);" class="tag-chip <?= in_array($tag, $tags) ? 'active' : '' ?>" data-tag="<?= htmlspecialchars($tag) ?>"><?= htmlspecialchars($tag) ?></span>
           <?php endforeach; ?>
       </div>
       <input id = "tags" style="display: none;" type="text" name="tags" value=""/>
       <input type="text" id="customTagInput" class="form-control" placeholder="Eigenen Tag hinzufügen und Enter drücken" formnovalidate/>
     </div>
-          <script>
-  document.getElementById('customTagInput').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-      event.preventDefault(); 
-      // Suppose you have your tag in a variable:
-      const tag = document.getElementById("customTagInput").value;
+      <script>
+        function create_tag(tag) {
 
-      // Create the span element
-      const span = document.createElement('span');
+          
 
-      // Add the class
-      span.classList.add('tag-chip');
+          // Create the span element
+          const span = document.createElement('span');
 
-      // Set the data-tag attribute safely
-      span.setAttribute('data-tag', tag);
-      
-      span.addEventListener('click', () => {
-        span.remove();  // Entfernt das Element aus dem DOM
+          // Add the class
+          span.classList.add('tag-chip');
+
+          // Set the data-tag attribute safely
+          span.setAttribute('data-tag', tag);
+          
+          span.addEventListener('click', () => {
+            span.remove();  // Entfernt das Element aus dem DOM
+            update_hidden_input();
+          });
+
+          // Set the text content (escaping happens automatically with textContent)
+          span.textContent = tag;
+
+          // Now, append it somewhere in your DOM, for example:
+          document.getElementById("tagsContainer").appendChild(span);
+
+          span.classList.add("active");
+
+          update_hidden_input();
+        }
+
+        document.getElementById('customTagInput').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+
+          const tagInput = document.getElementById("customTagInput");
+
+          const tag = tagInput.value.trim();
+          if (tag === "") return; // Leeren Tag ignorieren
+
+          create_tag(tag); // Create the tag with the input value
+
+          tagInput.value = ""; // Clear input after adding
+        }
       });
 
-      // Set the text content (escaping happens automatically with textContent)
-      span.textContent = tag;
+      function initialize_tags() {
+        let tags = [<?php
+          $first = true;
+          foreach($tags as $tag) {
+            if($allTags != null && in_array($tag, $allTags)) continue; // ignore standard tags
+            if (!$first)
+              echo ",";
+            else 
+              $first = false;
+            echo "'".htmlspecialchars($tag)."'";
+          }?>];
+        for (let tag_ of tags) {
+          create_tag(tag_);
+        }
+      }
 
-      // Now, append it somewhere in your DOM, for example:
-      document.getElementById("tagsContainer").appendChild(span);
-
-      span.classList.add("active");
-
-      update_hidden_input();
-    }
-  });
-</script>
+      initialize_tags();
+    </script>
     <div class="mb-3">
       <label for="author" class="form-label">Autor</label>
-      <input type="text" name="Author" id="author" class="form-control" placeholder="Autorname eingeben" />
+      <input type="text" name="Author" id="author" class="form-control" placeholder="Autorname eingeben" value="<?= htmlspecialchars($author) ?>"/>
     </div>
 
     <div class="mb-3">
       <label for="maxDuration" class="form-label">Maximale Zubereitungsdauer (Minuten)</label>
-      <input type="number" name="maxDuration" id="maxDuration" class="form-control" min="1" placeholder="z.B. 30" />
+      <input type="number" name="maxDuration" id="maxDuration" class="form-control" min="1" placeholder="z.B. 30" value="<?php if($duration != -1) {echo htmlspecialchars($duration); } ?>"/>
     </div>
 
     <button type="submit" class="btn btn-warning fw-bold">Suchen</button>

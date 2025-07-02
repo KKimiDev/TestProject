@@ -1,4 +1,5 @@
 <?php 
+require_once("check_login.php");
 
 $name = $_POST['name'] ?? '';
 $email = $_POST['email'] ?? '';
