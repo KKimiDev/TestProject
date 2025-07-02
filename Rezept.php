@@ -1,5 +1,6 @@
 <?php 
 require_once("database_login.php");
+require_once("check_login.php");
 
 $name = "";
 $author = "";
@@ -95,7 +96,41 @@ while($row = $stmt->fetch()) {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezeptseite – Alternativ</title>
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+<style>
+  .title-with-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px; /* kleiner Abstand */
+    font-weight: 600;
+    font-size: 2rem;
+  }
+
+  .edit-btn {
+    border: none;
+    background: transparent;
+    color: #0d6efd; /* Bootstrap primary */
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+  }
+
+  .edit-btn:hover,
+  .edit-btn:focus {
+    color: #084298; /* dunkleres Blau beim Hover */
+    outline: none;
+  }
+
+  .edit-btn i {
+    font-size: 1.2rem;
+  }
+</style>
 
   <style>
     body {
@@ -196,8 +231,15 @@ while($row = $stmt->fetch()) {
   </style>
 </head>
 <body>
-
-  <h1><?= $recipe["Name"] ?></h1>
+    <div style="justify-content: center; display: flex;">
+  <h1 class="title-with-edit"><?= $recipe["Name"] ?>
+  Rezept
+  <button <?php if(!isset($_SESSION["usr"]) || $_SESSION["usr"] != $author) {echo "style='display: none;'"; } ?> onclick='window.location.href = "http://localhost/sites/Rezepte/Rezeptbearbeiten/<?= $author ?>/<?= $name ?>"' class="edit-btn" aria-label="Rezept bearbeiten" title="Rezept bearbeiten">
+    <i class="bi bi-pencil-fill"></i>
+  </button>
+</h1>
+  </div>
+</button>
 
   <!-- Bilder Slideshow (Carousel oben) -->
   <div id="imageCarousel" data-bs-interval="false" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">

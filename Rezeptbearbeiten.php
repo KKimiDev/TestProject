@@ -7,7 +7,7 @@ $author = $_GET["Author"] ?? null;
 
 
 if ((!$name) || (!$author) || (!isset($_SESSION["usr"])) || ($_SESSION["usr"] != $author)) {
-    header("Location: index.php");
+    header("Location: http://localhost/sites/Rezepte");
     exit;
 }
 
@@ -114,12 +114,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
       </div>
     </form>
   </div>
-
-  <footer style="margin-top: 40px;">
-    <div class="container text-center">
-      &copy; 2025 RezepteSite – Alle Rechte vorbehalten
-    </div>
-  </footer>
 
   <!-- Bootstrap & jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
