@@ -15,10 +15,10 @@ $fehler = "";
 
 // Prüfen, ob das Formular gesendet wurde
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(isset($_POST["altpasswort"])) {
     // Eingabewerte holen
     $altpass = $_POST['altpasswort'] ?? '';
     $neupass = $_POST['neupasswort'] ?? '';
-    $beschreibung = $_POST['beschreibung'] ?? '';
 
     // Überprüfen, ob die Passworte eingegeben wurden
     if (empty($altpass) || empty($neupass)) {
@@ -46,11 +46,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $fehler = "Das alte Passwort ist falsch.";
         }
     }
+  }
+  if(isset($_POST["beschreibung"])) {
     
+    $beschreibung = $_POST['beschreibung'] ?? '';
     $sql = "UPDATE users SET Description = :beschreibung WHERE Username = :username";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['beschreibung' => $beschreibung, 'username' => $username]);
+  }
+    
 }
+
+$sql = "SELECT Description FROM users WHERE Username = :username";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['username' => $username]);
+$descr = htmlspecialchars($stmt->fetch()["Description"]);
 
 ?>
 
@@ -74,17 +84,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form class="folgen" method="POST" action="">
           <div class="zsm">
             <h1 class="veraenderung">Altes Passwort:</h1>
-            <input type="password" placeholder="Altes Passwort" name="altpasswort" value="<?= htmlspecialchars($altpass) ?>" required>
+            <input type="password" placeholder="Altes Passwort" name="altpasswort" value="" required>
           </div>
 
           <div class="zsm">
             <h1 class="veraenderung">Neues Passwort:</h1>
-            <input type="password" placeholder="Neues Passwort" name="neupasswort" value="<?= htmlspecialchars($neupass) ?>" required>
+            <input type="password" placeholder="Neues Passwort" name="neupasswort" value="" required>
           </div>
-
+          <!-- Bestätigungsbutton -->
+          <button type="submit" name="bestaetigen">Bestätigen</button>
+</form>
+      <form class="folgen2" method="POST" action="">
           <div class="zsm">
             <h1 class="veraenderung">Beschreibung:</h1>
-            <input type="text" placeholder="Deine Profilbeschreibung" name="beschreibung" value="<?= htmlspecialchars($beschreibung) ?>">
+            <input type="text" placeholder="Deine Profilbeschreibung" name="beschreibung" value="<?= $descr ?>">
           </div>
 
           <!-- Bestätigungsbutton -->
