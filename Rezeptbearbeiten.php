@@ -7,7 +7,7 @@ $author = $_GET["Author"] ?? null;
 
 
 if ((!$name) || (!$author) || (!isset($_SESSION["usr"])) || ($_SESSION["usr"] != $author)) {
-    header("Location: index.php");
+    header("Location: http://localhost/sites/Rezepte");
     exit;
 }
 
