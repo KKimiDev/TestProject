@@ -108,7 +108,7 @@
       overflow-x: auto;         
       white-space: nowrap;      
       border: 1px solid #ccc;
-      padding-bottom: 2px;
+      padding-bottom: 5px;
       scrollbar-width: medium;    
     }
     .scroll-container::-webkit-scrollbar {
