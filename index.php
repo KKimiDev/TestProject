@@ -187,13 +187,6 @@ require_once("check_login.php");
     }
 
   </style>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 58b0efa (Bild overlay)
-=======
->>>>>>> c8c976d (changes)
->>>>>>> a1dfc96977bcfe65db7cdf27fec8200103a67fc6
 </head>
 <body>
 <?php include("templates/navbar.php"); ?>
