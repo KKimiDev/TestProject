@@ -41,6 +41,9 @@ function neuesRezept() {
           <li class="nav-item">
             <button class="B-Rund" onclick="neuesRezept();">Neues Rezept</button>
           </li>
+          <li class="nav-item">
+            <button class="B-Rund" onclick='window.location.href="<?php if (isset($_SESSION['usr'])) {echo "http://localhost/sites/Rezepte/Profil/" . $_SESSION["usr"]; } else {echo "http://localhost/sites/Rezepte";} ?>"'>Profil</button>
+          </li>
         </ul>
       </div>
     </div>

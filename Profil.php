@@ -45,7 +45,7 @@
     <!-- Dein custom CSS -->
 </head>
 <body>
-<?php include("templates/navbar.php;"); ?>
+<?php include("templates/navbar.php"); ?>
 
   <!-- Hauptbereich mit Sidebar und Content -->
   <main class="container my-5">
