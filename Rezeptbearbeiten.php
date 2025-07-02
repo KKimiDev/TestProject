@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
 ?>
 <!DOCTYPE html>
 <html lang="de">
-<head><?php.include("templates/head.php"); ?>
+<head><?php include("templates/head.php"); ?>
   <meta charset="UTF-8"><title>Rezept bearbeiten</title></head>
 <body>
   <?php include("templates/navbar.php"); ?>
