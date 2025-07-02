@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
   <head>
-    <base href="/sites/Rezepte/"/>
+    <?php include("templates/head.php;"); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kontakt</title>
@@ -33,7 +33,7 @@
 
   </head>
 <body>
-<?php include("templates/head.php;"); ?>
+<?php include("templates/navbar.php;"); ?>
 
   <!-- Hauptbereich mit Sidebar und Content -->
   <main class="container my-5">
