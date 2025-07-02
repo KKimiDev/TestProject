@@ -4,7 +4,7 @@ require_once("database_login.php");
 $name = $_GET["Name"] ?? null;
 $author = $_GET["Author"] ?? null;
 
-if (!$name || !$author) {
+if (!$name || !$author || !isset($_SESSION["usr"] || ($_SESSION["usr"] != $author)) {
     header("Location: index.php");
     exit;
 }
