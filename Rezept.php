@@ -305,6 +305,11 @@ while($row = $stmt->fetch()) {
     </a>
   </div>
 
+  <!-- Rezeptkarte -->
+  <div class="recipe-card" tabindex="0" role="article" aria-label="Rezept Schoko-Bananen-Pancakes">
+    <div>Erstellt von <a href="http://localhost/sites/Rezepte/Profil/<?= $recipe["Author"]?>"><?= $recipe["Author"]?></a></div>
+  </div>
+
   <footer style="margin-top: 20px;">
     <div class="container">
       &copy; 2025 RezepteSite - Alle Rechte vorbehalten
