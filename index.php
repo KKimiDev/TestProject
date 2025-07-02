@@ -190,7 +190,10 @@ require_once("check_login.php");
     }
 
   </style>
+<<<<<<< HEAD
 >>>>>>> 58b0efa (Bild overlay)
+=======
+>>>>>>> c8c976d (changes)
 </head>
 <body>
 <script>
