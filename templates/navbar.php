@@ -1,19 +1,19 @@
     <script>
       function neuesRezept() {
-          <?php 
-            if (isset($_SESSION["guest"])) {
-              echo "window.location.href = 'login'; return;";
-            }
-          ?>
-          let rezeptName = prompt("Bitte den Namen des neuen Rezepts eingeben:");
-          if (rezeptName && rezeptName.trim() !== "") {
-              // URL-encode den Namen für GET-Parameter
-              rezeptName = encodeURIComponent(rezeptName.trim());
-              // Weiterleitung mit GET-Parameter
-              window.location.href = "Rezeptbearbeiten/<?= $_SESSION['usr'] ?? '' ?>/" + rezeptName;
-          } else {
-              alert("Bitte einen gültigen Namen eingeben.");
-          }
+        <?php
+        if (isset($_SESSION["guest"])) {
+          echo "window.location.href = 'login'; return;";
+        }
+        ?>
+        let rezeptName = prompt("Bitte den Namen des neuen Rezepts eingeben:");
+        if (rezeptName && rezeptName.trim() !== "") {
+          // URL-encode den Namen für GET-Parameter
+          rezeptName = encodeURIComponent(rezeptName.trim());
+          // Weiterleitung mit GET-Parameter
+          window.location.href = "Rezeptbearbeiten/<?= $_SESSION['usr'] ?? '' ?>/" + rezeptName;
+        } else {
+          alert("Bitte einen gültigen Namen eingeben.");
+        }
       }
     </script>
     <!-- Navigation Bar -->
@@ -45,7 +45,11 @@
               <button class="B-Rund" onclick="neuesRezept();">Neues Rezept</button>
             </li>
             <li class="nav-item">
-              <button class="B-Rund" onclick='window.location.href="<?php if (isset($_SESSION['usr'])) {echo "http://localhost/sites/Rezepte/Profil/" . $_SESSION["usr"]; } else {echo "http://localhost/sites/Rezepte";} ?>"'>Profil</button>
+              <button class="B-Rund" onclick='window.location.href="<?php if (isset($_SESSION['usr'])) {
+                                                                      echo "http://localhost/sites/Rezepte/Profil/" . $_SESSION["usr"];
+                                                                    } else {
+                                                                      echo "http://localhost/sites/Rezepte";
+                                                                    } ?>"'>Profil</button>
             </li>
           </ul>
         </div>

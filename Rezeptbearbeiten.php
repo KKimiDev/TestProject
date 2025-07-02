@@ -7,16 +7,17 @@ $author = $_GET["Author"] ?? null;
 
 
 if ((!$name) || (!$author) || (!isset($_SESSION["usr"])) || ($_SESSION["usr"] != $author)) {
-    header("Location: http://localhost/sites/Rezepte");
-    exit;
+  header("Location: http://localhost/sites/Rezepte");
+  exit;
 }
 
 // Fetch existing recipe data
-function fetchAll($pdo, $table, $name, $author) {
-    $sql = "SELECT * FROM $table WHERE RecipeName = :name AND RecipeAuthor = :author";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['name' => $name, 'author' => $author]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+function fetchAll($pdo, $table, $name, $author)
+{
+  $sql = "SELECT * FROM $table WHERE RecipeName = :name AND RecipeAuthor = :author";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute(['name' => $name, 'author' => $author]);
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 $sql = "SELECT * FROM Recipes WHERE Name = :name AND Author = :author";
@@ -24,7 +25,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(['name' => $name, 'author' => $author]);
 $recipe = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if(count($recipe) == 0) {
+if (count($recipe) == 0) {
   $sql = "INSERT INTO Recipes (Name, Author, Description, Duration) VALUES (:name, :author, '', 30)";
   $stmt = $pdo->prepare($sql);
   $stmt->execute(['name' => $name, 'author' => $author]);
@@ -38,48 +39,53 @@ $utilities = fetchAll($pdo, 'Utilities', $name, $author);
 
 // Handle form submit
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
-    $pdo->beginTransaction();
-    // Update recipe main data
-    $stmt = $pdo->prepare("
+  $pdo->beginTransaction();
+  // Update recipe main data
+  $stmt = $pdo->prepare("
         UPDATE Recipes 
         SET Description = :description 
         WHERE Name = :oldname AND Author = :oldauthor
     ");
-    $stmt->execute([
-        'description' => $_POST['description'],
-        'oldname' => $name,
-        'oldauthor' => $author
-    ]);
+  $stmt->execute([
+    'description' => $_POST['description'],
+    'oldname' => $name,
+    'oldauthor' => $author
+  ]);
 
-    // Helper to clear & insert multiple
-    function replaceMany($pdo, $table, $keyCol, $valCol, $oldname, $oldauthor, $items) {
-      global $name;
-      global $author;  
-      $pdo->prepare("DELETE FROM $table WHERE RecipeName = :name AND RecipeAuthor = :author")
-            ->execute(['name' => $name, 'author' => $author]);
-        $stmt2 = $pdo->prepare("
+  // Helper to clear & insert multiple
+  function replaceMany($pdo, $table, $keyCol, $valCol, $oldname, $oldauthor, $items)
+  {
+    global $name;
+    global $author;
+    $pdo->prepare("DELETE FROM $table WHERE RecipeName = :name AND RecipeAuthor = :author")
+      ->execute(['name' => $name, 'author' => $author]);
+    $stmt2 = $pdo->prepare("
             INSERT INTO $table (RecipeName, RecipeAuthor, $valCol) 
             VALUES (:name, :author, :value)
         ");
-        foreach ($items as $it) {
-            if (trim($it) === '') continue;
-            $stmt2->execute(['name' => $name, 'author' => $author, 'value' => trim($it)]);
-        }
+    foreach ($items as $it) {
+      if (trim($it) === '') continue;
+      $stmt2->execute(['name' => $name, 'author' => $author, 'value' => trim($it)]);
     }
+  }
 
-    replaceMany($pdo, 'Ingredients', 'Ingredient', 'Ingredient', $name, $author, explode("\n", $_POST['ingredients']));
-    replaceMany($pdo, 'Utilities', 'Utility', 'Utility', $name, $author, explode("\n", $_POST['utilities']));
-    replaceMany($pdo, 'Steps', 'Title, Explanation', 'Explanation', $name, $author, explode("\n---\n", $_POST['steps']));
+  replaceMany($pdo, 'Ingredients', 'Ingredient', 'Ingredient', $name, $author, explode("\n", $_POST['ingredients']));
+  replaceMany($pdo, 'Utilities', 'Utility', 'Utility', $name, $author, explode("\n", $_POST['utilities']));
+  replaceMany($pdo, 'Steps', 'Title, Explanation', 'Explanation', $name, $author, explode("\n---\n", $_POST['steps']));
 
-    $pdo->commit();
-    //header("Location: view_recipe.php?Name=".urlencode($_POST['name'])."&Author=".urlencode($_POST['author']));
-    exit;
+  $pdo->commit();
+  //header("Location: view_recipe.php?Name=".urlencode($_POST['name'])."&Author=".urlencode($_POST['author']));
+  exit;
 }
 ?>
 <!DOCTYPE html>
 <html lang="de">
+
 <head><?php include("templates/head.php"); ?>
-  <meta charset="UTF-8"><title>Rezept bearbeiten</title></head>
+  <meta charset="UTF-8">
+  <title>Rezept bearbeiten</title>
+</head>
+
 <body>
   <?php include("templates/navbar.php"); ?>
   <h1>Rezept bearbeiten</h1>
@@ -105,8 +111,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
       <div class="form-group">
         <label for="steps" class="recipe-title">Schritte (Titel und Erklärung durch `---` trennen, je Schritt)</label>
         <textarea name="steps" id="steps" class="form-control preparation" rows="10"><?= htmlspecialchars(
-          implode("\n---\n", array_map(fn($s)=> $s['Title']."\n".$s['Explanation'], $steps))
-        ) ?></textarea>
+                                                                                        implode("\n---\n", array_map(fn($s) => $s['Title'] . "\n" . $s['Explanation'], $steps))
+                                                                                      ) ?></textarea>
       </div>
 
       <div class="text-center mt-4">
@@ -118,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
   <!-- Bootstrap & jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-<?php include("templates/footer.php"); ?>
+  <?php include("templates/footer.php"); ?>
 </body>
 
 </html>

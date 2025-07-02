@@ -1,18 +1,18 @@
-<?php 
+<?php
 require_once("database_login.php");
 require_once("check_login.php");
 
 $name = "";
 $author = "";
 
-if(isset($_GET["Name"]))
+if (isset($_GET["Name"]))
   $name = $_GET["Name"];
 else
   header("location: index");
-if(isset($_GET["Author"]))
+if (isset($_GET["Author"]))
   $author = $_GET["Author"];
 //else
-  //header("location: index");
+//header("location: index");
 
 // Recipe
 
@@ -35,7 +35,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(['name' => $name, 'author' => $author]);
 
 $imgs = [];
-while($row = $stmt->fetch()) {
+while ($row = $stmt->fetch()) {
   array_push($imgs, $row);
 }
 
@@ -50,7 +50,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(['name' => $name, 'author' => $author]);
 
 $steps = [];
-while($row = $stmt->fetch()) {
+while ($row = $stmt->fetch()) {
   array_push($steps, $row);
 }
 
@@ -65,7 +65,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(['name' => $name, 'author' => $author]);
 
 $ingredients = [];
-while($row = $stmt->fetch()) {
+while ($row = $stmt->fetch()) {
   array_push($ingredients, $row);
 }
 
@@ -80,7 +80,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(['name' => $name, 'author' => $author]);
 
 $utilities = [];
-while($row = $stmt->fetch()) {
+while ($row = $stmt->fetch()) {
   array_push($utilities, $row);
 }
 
@@ -91,6 +91,7 @@ while($row = $stmt->fetch()) {
 
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <?php include("templates/head.php"); ?>
   <meta charset="UTF-8" />
@@ -99,52 +100,57 @@ while($row = $stmt->fetch()) {
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-<!-- Bootstrap Icons -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
-<style>
-  .title-with-edit {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px; /* kleiner Abstand */
-    font-weight: 600;
-    font-size: 2rem;
-  }
+  <style>
+    .title-with-edit {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      /* kleiner Abstand */
+      font-weight: 600;
+      font-size: 2rem;
+    }
 
-  .edit-btn {
-    border: none;
-    background: transparent;
-    color: #0d6efd; /* Bootstrap primary */
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    transition: color 0.2s ease;
-  }
+    .edit-btn {
+      border: none;
+      background: transparent;
+      color: #0d6efd;
+      /* Bootstrap primary */
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s ease;
+    }
 
-  .edit-btn:hover,
-  .edit-btn:focus {
-    color: #084298; /* dunkleres Blau beim Hover */
-    outline: none;
-  }
+    .edit-btn:hover,
+    .edit-btn:focus {
+      color: #084298;
+      /* dunkleres Blau beim Hover */
+      outline: none;
+    }
 
-  .edit-btn i {
-    font-size: 1.2rem;
-  }
-</style>
+    .edit-btn i {
+      font-size: 1.2rem;
+    }
+  </style>
 
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #faf8f5;
-      color: #4b342f; /* dunkleres Braun für Text */
+      color: #4b342f;
+      /* dunkleres Braun für Text */
       padding-top: 50px 0;
     }
 
     h1 {
       text-align: center;
       font-weight: 700;
-      color: #a9746e; /* soften Braun */
+      color: #a9746e;
+      /* soften Braun */
       margin-bottom: 40px;
       font-size: 2.8rem;
       letter-spacing: 1px;
@@ -231,26 +237,33 @@ while($row = $stmt->fetch()) {
     }
   </style>
 </head>
-<body>
-<?php include("templates/navbar.php"); ?>
 
-    <div style="justify-content: center; display: flex;">
-  <h1 class="title-with-edit"><?= $recipe["Name"] ?>
-  Rezept
-  <button <?php if(!isset($_SESSION["usr"]) || $_SESSION["usr"] != $author) {echo "style='display: none;'"; } ?> onclick='window.location.href = "http://localhost/sites/Rezepte/Rezeptbearbeiten/<?= $author ?>/<?= $name ?>"' class="edit-btn" aria-label="Rezept bearbeiten" title="Rezept bearbeiten">
-    <i class="bi bi-pencil-fill"></i>
-  </button>
-</h1>
+<body>
+  <?php include("templates/navbar.php"); ?>
+
+  <div style="justify-content: center; display: flex;">
+    <h1 class="title-with-edit"><?= $recipe["Name"] ?>
+      Rezept
+      <button <?php if (!isset($_SESSION["usr"]) || $_SESSION["usr"] != $author) {
+                echo "style='display: none;'";
+              } ?> onclick='window.location.href = "http://localhost/sites/Rezepte/Rezeptbearbeiten/<?= $author ?>/<?= $name ?>"' class="edit-btn" aria-label="Rezept bearbeiten" title="Rezept bearbeiten">
+        <i class="bi bi-pencil-fill"></i>
+      </button>
+    </h1>
   </div>
-</button>
+  </button>
 
   <!-- Bilder Slideshow (Carousel oben) -->
   <div id="imageCarousel" data-bs-interval="false" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
     <div class="carousel-inner">
-      <?php $_ = true; foreach($imgs as $img): ?>
-      <div class="carousel-item <?php if ($_) {echo "active"; $_ = false; }?>">
-        <img src="/sites/Rezepte/uploads/<?= $img["Path"]; ?>" class="d-block w-100" alt="Schritt 1: Bananen zerdrücken">
-      </div>
+      <?php $_ = true;
+      foreach ($imgs as $img): ?>
+        <div class="carousel-item <?php if ($_) {
+                                    echo "active";
+                                    $_ = false;
+                                  } ?>">
+          <img src="/sites/Rezepte/uploads/<?= $img["Path"]; ?>" class="d-block w-100" alt="Schritt 1: Bananen zerdrücken">
+        </div>
       <?php endforeach; ?>
     </div>
     <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
@@ -272,18 +285,18 @@ while($row = $stmt->fetch()) {
     <h3>Zutaten</h3>
     <ul class="ingredients">
       <?php
-        foreach($ingredients as $ingredient) {
-          echo "<li>$ingredient[Ingredient]</li>";
-        }
+      foreach ($ingredients as $ingredient) {
+        echo "<li>$ingredient[Ingredient]</li>";
+      }
       ?>
     </ul>
 
     <h3>Hilfsmittel</h3>
     <ul class="ingredients">
       <?php
-        foreach($utilities as $utility) {
-          echo "<li>$utility[Utility]</li>";
-        }
+      foreach ($utilities as $utility) {
+        echo "<li>$utility[Utility]</li>";
+      }
       ?>
     </ul>
   </div>
@@ -291,11 +304,15 @@ while($row = $stmt->fetch()) {
   <!-- Unteres Carousel (Repariert) -->
   <div id="recipeCarousel" class="carousel slide" data-bs-interval="false" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
     <div class="carousel-inner">
-      <?php $_ = true; foreach($steps as $step): ?>
-      <div class="carousel-item active">
-        <h3 class="recipe-title"><?php if ($_ = true) {echo $step["Title"]; $_ = false;}?></h3>
-        <p><?= $step["Explanation"] ?></p>
-      </div>
+      <?php $_ = true;
+      foreach ($steps as $step): ?>
+        <div class="carousel-item active">
+          <h3 class="recipe-title"><?php if ($_ = true) {
+                                      echo $step["Title"];
+                                      $_ = false;
+                                    } ?></h3>
+          <p><?= $step["Explanation"] ?></p>
+        </div>
       <?php endforeach; ?>
     </div>
     <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
@@ -310,7 +327,7 @@ while($row = $stmt->fetch()) {
 
   <!-- Rezeptkarte -->
   <div class="recipe-card" tabindex="0" role="article" aria-label="Rezept Schoko-Bananen-Pancakes">
-    <div>Erstellt von <a href="http://localhost/sites/Rezepte/Profil/<?= $recipe["Author"]?>"><?= $recipe["Author"]?></a></div>
+    <div>Erstellt von <a href="http://localhost/sites/Rezepte/Profil/<?= $recipe["Author"] ?>"><?= $recipe["Author"] ?></a></div>
   </div>
 
   <footer style="margin-top: 20px;">
@@ -324,6 +341,5 @@ while($row = $stmt->fetch()) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>
-
-
