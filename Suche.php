@@ -9,7 +9,7 @@ if (!isset($_SESSION['usr']) && !isset($_SESSION['guest'])) {
 }
 
 // standard tags
-$allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Schnell & Einfach', 'Glutenfrei', 'LowCarb', 'Frühstück', 'Sommer'];
+$allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Simpel', 'Glutenfrei', 'LowCarb', 'Frühstück', 'Sommer'];
 
 // search params
 $author = null; 
