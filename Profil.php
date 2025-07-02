@@ -1,34 +1,31 @@
 <?php
-  // require_once("check_login.php")
+  require_once("check_login.php");
+  require_once("database_login.php");
   
   if(!isset($_GET["name"]))
     header("Location: index.php");
 
   $profile_name = $_GET["name"];
-  // Datenbankverbindung
-  $servername = "localhost";
-  $username = "root"; // Standard bei XAMPP
-  $password = "";
-  $dbname = "Rezepte";
 
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  if ($conn->connect_error) {
-    die("Verbindung fehlgeschlagen: " . $conn->connect_error);
-  }
+  $sql = "SELECT * FROM Users WHERE Username=:usr";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([':usr' => $profile_name]);
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  $login_error = '';
-  $usr = $conn->real_escape_string($profile_name);
+  $profile = null;
 
-  $sql = "SELECT * FROM Users WHERE Username='$usr'";
-  $result = $conn->query($sql);
-  if ($result && $result->num_rows == 1) {
-    $profile = $result->fetch_assoc();
+  if (count($result) == 1) {
+    $profile = $result[0];
   } else {
     header("Location: index.php");
   }
 
-  $sql = "SELECT * FROM Recipes WHERE Author='$usr'";
-  $recipes = $conn->query($sql);
+  $sql = "SELECT * FROM Recipes WHERE Author=:usr";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([':usr' => $profile_name]);
+  $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  $authorisuser = isset($_SESSION["usr"]) && $_SESSION["usr"] == $profile_name;
 ?>
 
 <!DOCTYPE html>
@@ -53,8 +50,8 @@
       <div class="profile-header">
         <img class="profile-pic" src="
         <?php 
-          if($profile["Picture"] == null) {
-            echo "rsc/R.jpg"; 
+          if($profile["Picture"] == null || trim($profile["Picture"]) == "") {
+            echo "http://localhost/sites/Rezepte/rsc/R.png"; 
           } 
           else { 
             echo "profile pictures/" . $profile["Picture"]; 
@@ -64,7 +61,7 @@
         <div>
           <div style="display: flex; align-items: center; gap: 15px;">
           <h1 class="profile-name"><?php echo $profile["Username"] ?></h1>
-          <button class="btn btn-sm btn-outline-warning text-black fw-bold rounded-pill px-4">
+          <button <?php if($authorisuser) {echo "style='display:none;'";}?> class="btn btn-sm btn-outline-warning text-black fw-bold rounded-pill px-4">
             Follow
           </button>
           </div>
@@ -98,13 +95,17 @@
         <div class="recipe-list">
           <?php
           $i = 0;
-          while (($row = $recipes->fetch_assoc()) && $i < 3) {
+          foreach($recipes as $row) {
             echo 
           '<div class="recipe-card" onclick="open_recipe('."'$row[Name]'".')">
             <div class="recipe-title">' . $row["Name"] . '</div>
             <div class="recipe-desc">' . $row["Description"] . '</div>
           </div>';
             $i++;
+
+            if ($i == 3) {
+              break;
+            }
           }
           ?>
         </div>
