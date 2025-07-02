@@ -89,7 +89,7 @@ $stmt->execute();
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <base href="/sites/Rezepte/"/>
+  <?php include("templates/head.phps");?>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rezeptsuche</title>
@@ -120,11 +120,7 @@ $stmt->execute();
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
-  <div class="container">
-    <a class="navbar-brand fw-bold text-warning" href="#">RezepteSite</a>
-  </div>
-</nav>
+<?php include("templates/navbar.php");?>
 
 <main class="container">
 
@@ -243,13 +239,7 @@ $stmt->execute();
   </section>
 </main>
 
-<footer class="text-center py-3 mt-5 bg-light">
-  &copy; 2025 RezepteSite - Alle Rechte vorbehalten
-</footer>
-
-<script>
-
-</script>
+<?php include("templates/footer.php"); ?>
 
 </body>
 </html>
