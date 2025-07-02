@@ -40,6 +40,11 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Dein custom CSS -->
+
+    <!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+
 </head>
 <body>
 <?php include("templates/navbar.php"); ?>
@@ -63,6 +68,10 @@
           <h1 class="profile-name"><?php echo $profile["Username"] ?></h1>
           <button <?php if($authorisuser) {echo "style='display:none;'";}?> class="btn btn-sm btn-outline-warning text-black fw-bold rounded-pill px-4">
             Follow
+          </button>
+
+          <button <?php if(!$authorisuser) {echo "style='display: none;'"; } ?> onclick='window.location.href = "http://localhost/sites/Rezepte/Profilbearbeiten/<?= $profile["Username"] ?>"' class="edit-btn" aria-label="Rezept bearbeiten" title="Rezept bearbeiten">
+            <i class="bi bi-pencil-fill"></i>
           </button>
           </div>
           <p class="profile-bio"><?php echo $profile["Description"] ?></p>
