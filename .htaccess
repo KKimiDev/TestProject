@@ -12,8 +12,12 @@ RewriteRule ^([\w\s-]+)/?$ $1.php [L,QSA]
 # Route /Profil/username to Profil.php?nutzer=username
 RewriteRule ^Profil/([\w\s-]+)/?$ Profil.php?name=$1 [L,QSA]
 
+# Route /Profilbearbeiten/username to Profilbearbeiten.php?nutzer=username
+RewriteRule ^Profilbearbeiten/([\w\s-]+)/?$ Profilbearbeiten.php?name=$1 [L,QSA]
+
+
 # Route /Rezept/username/recipename to Rezept.php?Author=username&Name=recipename
 RewriteRule ^Rezept/([\w\s-]+)/([\w\s-]+)/?$ Rezept.php?Author=$1&Name=$2 [L,QSA]
 
-# Route /Rezept/username/recipename to Rezept.php?Author=username&Name=recipename
+# Route /Rezeptbearbeiten/username/recipename to Rezeptbearbeiten.php?Author=username&Name=recipename
 RewriteRule ^Rezeptbearbeiten/([\w\s-]+)/([\w\s-]+)/?$ Rezeptbearbeiten.php?Author=$1&Name=$2 [L,QSA]
