@@ -19,7 +19,8 @@
 
     .profile-container {
       max-width: 800px;
-      margin: 40px auto;
+      margin: auto;
+      margin-top: 20px;
       background: white;
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
@@ -55,8 +56,8 @@
       background: white;
       border-radius: 10px;
       padding: 20px;
+      margin-top: 20px;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      height: 100%;
     }
 
     .sidebar h5 {
@@ -107,11 +108,11 @@
       overflow-x: auto;         
       white-space: nowrap;      
       border: 1px solid #ccc;
-      padding-bottom: 10px;
-      scrollbar-width: thin;    
+      padding-bottom: 2px;
+      scrollbar-width: medium;    
     }
     .scroll-container::-webkit-scrollbar {
-      height: 8px;             
+      height: 10px;             
     }
     .scroll-container::-webkit-scrollbar-thumb {
       background: #888;
@@ -122,8 +123,8 @@
     }
     .scroll-container img {
       display: inline-block;
-      width: 150px;             
-      height: 100px;
+      width: 300px;             
+      height: 200px;
       object-fit: cover;
       margin-right: 10px;
       border-radius: 4px;
@@ -138,13 +139,6 @@
     }
     .flex-bilder{
       display: flex;
-    }
-    .foto_head{
-      width: 150px;
-      height: 20px;
-      align: center;
-      margin-right: 10px;
-      border-radius: 4px;
     }
   </style>
 </head>
@@ -211,18 +205,60 @@
               <h1 class="profile-name">Neuste Rezepte</h1>
             </div>
           </div>
-          <div>
-              <table>
-                <tr>
-                  <th class=foto_head>Bild 1</th>
-                  <th class=foto_head>Bild 2</th>
-                  <th class=foto_head>Bild 3</th>
-                  <th class=foto_head>Bild 4</th>
-                  <th class=foto_head>Bild 5</th>
-                  <th class=foto_head>Bild 6</th>
-                </tr>
-              </table>
+          <div class=flex-bilder>
+            <div class="scroll-container">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
             </div>
+          </div>
+        </div>
+
+        <div class="profile-container">
+          <div class="profile-header">
+            <div>
+              <h1 class="profile-name">Am Besten bewertet</h1>
+            </div>
+          </div>
+          <div class=flex-bilder>
+            <div class="scroll-container">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-container">
+          <div class="profile-header">
+            <div>
+              <h1 class="profile-name">Am Neusten</h1>
+            </div>
+          </div>
+          <div class=flex-bilder>
+            <div class="scroll-container">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+              <img src="" alt="">
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-container">
+          <div class="profile-header">
+            <div>
+              <h1 class="profile-name">Beliebt im Sommer</h1>
+            </div>
+          </div>
           <div class=flex-bilder>
             <div class="scroll-container">
               <img src="" alt="">
