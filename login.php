@@ -10,6 +10,7 @@ $register_error = 'display:none;';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['guest'])) {
         // Gastzugang
+        unset($_SESSION["usr"]);
         $_SESSION['guest'] = true;
         header("Location: index.php");
         exit();
@@ -29,7 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($pass, $user['Password'])) {
                 // Login erfolgreich
                 $_SESSION['usr'] = $user['Username'];
-                
+                unset($_SESSION["guest"]);
+
                 header("Location: index.php");
                 exit();
             } else {
