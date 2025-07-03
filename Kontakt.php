@@ -52,26 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Dein custom CSS -->
 
-  <style>
-    .B-Rund {
-      background-color: #f9a825;
-      padding: 12px 12px;
-      border: none;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      border-radius: 12px;
-    }
-
-    .B-Rund:hover {
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      padding: 12.25px 12.25px;
-    }
-  </style>
-
 </head>
 
 <body>
