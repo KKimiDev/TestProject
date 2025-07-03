@@ -1,2 +1,0 @@
-Fehler: 1. Speichern von Rezepten funktioniert nicht (bis auf Beschreibung und Name)
-        2. Rezepte nicht von Profil aus erstellbar

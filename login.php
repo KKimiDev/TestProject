@@ -1,14 +1,19 @@
 <?php
+// Startet die Session
 session_start();
 
+// Setzt die Benutzersession zurück
 unset($_SESSION["usr"]);
 unset($_SESSION["guest"]);
 
+// Datenbankverbindung einbinden
 require_once("database_login.php");
 
-$login_error = 'display:none;';
-$register_error = 'display:none;';
+// Fehleranzeigen für Login und Registrierung initialisieren (CSS-Display)
+$loginError = 'display:none;';
+$registerError = 'display:none;';
 
+// Prüft, ob das Formular abgeschickt wurde
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['guest'])) {
     // Gastzugang
@@ -18,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
   }
   $usr = htmlspecialchars($_POST['usr']);
-  $pass = htmlspecialchars($_POST['pwd']);
+  $pwd = htmlspecialchars($_POST['pwd']);
 
   $sql = "SELECT * FROM Users WHERE Username=:usr";
   $stmt = $pdo->prepare($sql);
@@ -29,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result && count($result) == 1) {
       $user = $result[0];
       // Passwort prüfen
-      if (password_verify($pass, $user['Password'])) {
+      if (password_verify($pwd, $user['Password'])) {
         // Login erfolgreich
         $_SESSION['usr'] = $user['Username'];
         unset($_SESSION["guest"]);
@@ -37,35 +42,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: index.php");
         exit();
       } else {
-        $login_error = "";
+        $loginError = "";
       }
     } else {
-      $login_error = "";
+      $loginError = "";
     }
   } else if (isset($_POST["register"])) {
     if (count($result) == 0) {
       // Passwort hashen
-      $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
+      $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-      // Benutzer in DB einfügen
-      $insert_sql = "INSERT INTO Users (Username, Password, Description) VALUES (:usr, :pass, '')";
-      $insert_stmt = $pdo->prepare($insert_sql);
-      $insert_success = $insert_stmt->execute([
-        ':usr' => $usr,
-        ':pass' => $hashed_password
+      // Benutzer in die Datenbank einfügen
+      $insertSql = "INSERT INTO Users (Username, Password, Description) VALUES (:username, :password, '')";
+      $insertStmt = $pdo->prepare($insertSql);
+      $insertSuccess = $insertStmt->execute([
+        ':username' => $usr,
+        ':password' => $hashedPassword
       ]);
 
-      if ($insert_success) {
+      if ($insertSuccess) {
         // Direkt nach Registrierung einloggen und weiterleiten
         $_SESSION['usr'] = $usr;
         header("Location: index.php");
         exit();
       } else {
         // Fehler beim Einfügen
-        $register_error = "";
+        $registerError = "";
       }
     } else {
-      $register_error = "";
+      $registerError = "";
     }
   }
 }
@@ -75,7 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
-  <?php include("templates/head.php"); ?>
+  <?php // Fügt den gemeinsamen Head-Bereich ein
+  include("templates/head.php"); ?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rezepte</title>
@@ -83,20 +89,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-  <!-- Navigation Bar -->
+  <!-- Navigationsleiste -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" style="margin-bottom: 100px;">
     <div class="container">
       <a class="navbar-brand fw-bold text-warning" href="index">RezepteSite</a>
     </div>
   </nav>
-  <!-- Alert for wrong username or password -->
-  <div class="alert alert-danger" role="alert" style="margin-top: -70px; margin-bottom: 70px; <?= $login_error ?>">
+  <!-- Fehlermeldung für falschen Benutzernamen oder Passwort -->
+  <div class="alert alert-danger" role="alert" style="margin-top: -70px; margin-bottom: 70px; <?= $loginError ?>">
     ❌ Nutzername oder Passwort ist falsch. Bitte versuchen Sie es erneut.
   </div>
-  <!-- Alert for wrong username or password -->
-  <div class="alert alert-danger" role="alert" style="margin-top: -7px; margin-bottom: 70px; <?= $register_error ?>">
+  <!-- Fehlermeldung für vergebenen Benutzernamen -->
+  <div class="alert alert-danger" role="alert" style="margin-top: -7px; margin-bottom: 70px; <?= $registerError ?>">
     ❌ Nutzername ist vergeben. Bitte wählen Sie einen anderen.
   </div>
+  <!-- Hauptbereich -->
   <div class="login-container">
     <h2>Login</h2>
     <form method="POST" action="">

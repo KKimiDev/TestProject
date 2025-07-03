@@ -2,27 +2,23 @@
 require_once("database_login.php");
 require_once("check_login.php");
 
-if (!isset($_SESSION['usr']) && !isset($_SESSION['guest'])) {
-  // Benutzer ist nicht eingeloggt → zur Login-Seite weiterleiten
-  header("Location: login.php");
-  exit;
-}
-
+// Alle verfügbaren Tags aus der Datenbank laden
 $sql = "SELECT Tag FROM Tags GROUP BY Tag";
 $stmt = $pdo->prepare($sql);
 
-// Bind the value to the placeholder and execute
+// SQL ausführen
 $stmt->execute();
 
 $allTags_ = $stmt->fetchAll();
 
 $allTags = [];
 
+// Tags in ein einfaches Array umwandeln
 foreach($allTags_ as $tag_) {
   array_push($allTags, $tag_['Tag']);
 }
 
-// search params
+// Suchparameter initialisieren
 $author = null;
 $duration = -1;
 $tagcount = 0;
@@ -271,12 +267,14 @@ $stmt->execute();
       <h2>Suchergebnisse</h2>
       <div id="results" class="row g-4">
         <script>
+          // Öffnet das Rezept im neuen Pfad anhand von Autor und Name
           function open_recipe(author, name) {
             window.location.href = "Rezept/" + author + "/" + name;
           }
         </script>
-        <!-- Hier kommen Rezept-Karten rein -->
+        <!-- Hier werden die Rezept-Karten dynamisch eingefügt -->
         <?php
+        // Gibt für jedes gefundene Rezept eine Karte aus
         while (($row = $stmt->fetch())) {
           echo '<div class="recipe-card" onclick="open_recipe(' . "'$row[Author]'," . "'$row[Name]'" . ')">
             <div class="recipe-title">' . $row["Name"] . '</div>
