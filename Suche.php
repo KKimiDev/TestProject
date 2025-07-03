@@ -8,8 +8,19 @@ if (!isset($_SESSION['usr']) && !isset($_SESSION['guest'])) {
   exit;
 }
 
-// standard tags
-$allTags = ['Vegetarisch', 'Vegan', 'Fleisch', 'Desserts', 'Simpel', 'Glutenfrei', 'LowCarb', 'Frühstück', 'Sommer'];
+$sql = "SELECT Tag FROM Tags GROUP BY Tag";
+$stmt = $pdo->prepare($sql);
+
+// Bind the value to the placeholder and execute
+$stmt->execute();
+
+$allTags_ = $stmt->fetchAll();
+
+$allTags = [];
+
+foreach($allTags_ as $tag_) {
+  array_push($allTags, $tag_['Tag']);
+}
 
 // search params
 $author = null;
