@@ -90,11 +90,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </nav>
   <!-- Alert for wrong username or password -->
-  <div class="alert alert-danger" role="alert" style="<?= $login_error ?>">
+  <div class="alert alert-danger" role="alert" style="margin-top: -70px; margin-bottom: 70px; <?= $login_error ?>">
     ❌ Nutzername oder Passwort ist falsch. Bitte versuchen Sie es erneut.
   </div>
   <!-- Alert for wrong username or password -->
-  <div class="alert alert-danger" role="alert" style="<?= $register_error ?>">
+  <div class="alert alert-danger" role="alert" style="margin-top: -7px; margin-bottom: 70px; <?= $register_error ?>">
     ❌ Nutzername ist vergeben. Bitte wählen Sie einen anderen.
   </div>
   <div class="login-container">

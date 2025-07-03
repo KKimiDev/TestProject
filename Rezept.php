@@ -246,6 +246,21 @@ while ($row = $stmt->fetch()) {
       height: auto;
       border-radius: 15px;
     }
+
+    #imageCarousel {
+      width: 600px;        /* fixed width */
+      height: 400px;       /* fixed height */
+      overflow: hidden;    /* cut off anything beyond height */
+      margin: 0 auto;      /* center horizontally */
+      position: relative;  /* for absolute children if needed */
+    }
+
+    #imageCarousel img {
+      width: 100%;         /* width fits container */
+      height: auto;        /* height auto to keep aspect ratio */
+      /* but image height may exceed container height */
+    }
+
   </style>
 </head>
 
