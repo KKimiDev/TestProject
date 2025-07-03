@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $sql = "INSERT INTO kontakte (name, email, message) VALUES (:name, :email, :message)";
   $stmt = $pdo->prepare($sql);
 
-  // Bind the values to the placeholders and execute
+  
   $stmt->execute(['name' => $name, 'email' => $email, 'message' => $message]);
 
   echo "Daten erfolgreich gespeichert!";
