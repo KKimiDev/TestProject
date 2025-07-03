@@ -143,7 +143,7 @@ $stmt->execute();
 
     <!-- Suchformular -->
     <form id="searchForm" method="get" action="" class="mb-5">
-
+      
       <div class="mb-3">
         <label for="keyword" class="form-label">Stichwort</label>
         <input type="text" id="keyword" name="keyword" class="form-control" placeholder="z.B. Spaghetti, Kuchen, etc." />
