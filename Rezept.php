@@ -24,7 +24,7 @@ $stmt->execute(['name' => $name, 'author' => $author]);
 
 $recipe = $stmt->fetch();
 
-if(!$recipe || $stmt->fetch())
+if (!$recipe || $stmt->fetch())
   header("location: http://localhost/sites/Rezepte");
 
 // Images
@@ -321,18 +321,18 @@ while ($row = $stmt->fetch()) {
     </div>
 
     <!-- Unteres Carousel (Repariert) -->
-    <div id="recipeCarousel" class="carousel slide" data-bs-interval="false" data-ride="carousel" style="max-width: 600px; margin: 0 auto;">
+    <div id="recipeCarousel" class="carousel slide" data-ride="carousel" data-interval="false" style="max-width: 600px; margin: 0 auto;">
       <div class="carousel-inner">
-        <?php $_ = true;
+        <?php
+        $first = true;
         foreach ($steps as $step): ?>
-          <div class="carousel-item active">
-            <h3 class="recipe-title"><?php if ($_ = true) {
-                                        echo $step["Title"];
-                                        $_ = false;
-                                      } ?></h3>
+          <div class="carousel-item <?= $first ? 'active' : '' ?>">
+            <h3 class="recipe-title"><?= $step["Title"] ?></h3>
             <p><?= $step["Explanation"] ?></p>
           </div>
-        <?php endforeach; ?>
+        <?php
+          $first = false;
+        endforeach; ?>
       </div>
       <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -351,6 +351,10 @@ while ($row = $stmt->fetch()) {
   </main>
 
   <?php include("templates/footer.php"); ?>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
