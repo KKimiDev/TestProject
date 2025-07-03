@@ -88,7 +88,7 @@ if (isset($_POST['uploadPic']) && isset($_FILES['profilePic'])) {
             $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
             $newFileName = $_SESSION['usr'] . "_profile_" . time() . "." . $ext;
 
-            $uploadDir = __DIR__ . "/profile_pictures/";
+            $uploadDir = __DIR__ . "/profile pictures/";
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }

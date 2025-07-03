@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
   }
 
   $pdo->commit();
-  //header("Location: view_recipe.php?Name=".urlencode($_POST['name'])."&Author=".urlencode($_POST['author']));
+  header("Location: http://localhost/sites/Rezepte/Rezept/$author/$name");
   exit;
 }
 ?>

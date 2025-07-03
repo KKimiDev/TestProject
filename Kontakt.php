@@ -1,5 +1,42 @@
 <?php
 require_once("check_login.php");
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $name = $_POST['name'] ?? '';
+  $email = $_POST['email'] ?? '';
+  $message = $_POST['message'] ?? '';
+
+  if (empty($name) || empty($email) || empty($message)) {
+    die("Alle Felder müssen ausgefüllt werden.");
+  }
+
+  $host = 'localhost';
+  $db   = 'kontakt';
+  $user = 'root';
+  $pass = '';
+
+  $dsn = "mysql:host=$host;dbname=$db;";
+
+  $options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
+  ];
+
+  try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+  } catch (\PDOException $e) {
+    die("Fehler bei der Verbindung zur Datenbank: " . $e->getMessage());
+  }
+
+  $sql = "INSERT INTO kontakte (name, email, message) VALUES (:name, :email, :message)";
+  $stmt = $pdo->prepare($sql);
+
+  // Bind the values to the placeholders and execute
+  $stmt->execute(['name' => $name, 'email' => $email, 'message' => $message]);
+
+  echo "Daten erfolgreich gespeichert!";
+}
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -47,7 +84,7 @@ require_once("check_login.php");
       <p>Haben Sie Fragen oder Anmerkungen? Füllen Sie das Formular aus, und wir werden uns so schnell wie möglich bei Ihnen melden!</p>
 
       <!-- Kontaktformular -->
-      <form action="formular.php" method="POST">
+      <form action="" method="POST">
         <div class="mb-3">
           <label for="name" class="form-label">Ihr Name</label>
           <input type="text" class="form-control" id="name" name="name" required>
